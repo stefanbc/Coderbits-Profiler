@@ -58,7 +58,7 @@
         curl_setopt_array( $ch, $options );
          
         // Getting results
-        $result =  curl_exec($ch); // Getting jSON result string
+        $result = curl_exec($ch); // Getting jSON result string
         
         echo $result;
     }

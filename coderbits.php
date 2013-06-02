@@ -17,12 +17,13 @@
     
     function coderbits_profiler_options(){
         
-        echo "<h1 style='border-bottom:1px solid #ccc;padding-bottom: 10px;width:300px;'>Coderbits Profiler</h1>";
-        
         global $wpdb;
-    
+
+        echo '<link href="style.css" rel="stylesheet" type="text/css">'
+        echo "<h1 class='main-title'>Coderbits Profiler</h1>";    
         echo '<form method="post">';
-            echo 'Current set Coderbits Profile: <input type="text" name="username" id="username" value="' . get_option('coderbits_username') . '" placeholder="Enter you coderbits username">';
+            echo '<div style="padding: 10px 0;">Current set Coderbits Profile: <b>' . get_option('coderbits_username') . '</b></div>';
+            echo 'Set Coderbits Profile: <input type="text" name="username" id="username" placeholder="Enter you coderbits username">';
             echo '<input type="submit" value="Set Profile">';
         echo '</form>';
         
@@ -33,11 +34,8 @@
             update_option('coderbits_username', $username);
             
         }
-        
-        $name = "coderbits_username";
-        
-        add_option($name, $username);
-        
+               
+        add_option('coderbits_username', $username);
     }
     
     function coderbits_profiler_data() {
@@ -67,7 +65,10 @@
         $output = json_decode($result);
         
         // Output the name for example
-        echo $output->{'name'};
+        $return = '<div class="coderbits-field" id="coderbits-name">Name: ' . $output->{'name'} . "</div>";
+        $return .= '<div class="coderbits-field" id="coderbits-title">Title: ' . $output->{'title'} . "</div>";
+
+        echo $return;
         
     }
     

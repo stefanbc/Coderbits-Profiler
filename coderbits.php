@@ -1,7 +1,6 @@
 <?php
-    
     /*
-    	Plugin Name: Coderbits Profiler
+        Plugin Name: Coderbits Profiler
 		Plugin URI: https://github.com/stefanbc/Coderbits-Profiler
 		Description: Made for Wordpress
 		Version: 0.1

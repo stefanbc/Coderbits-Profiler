@@ -12,7 +12,7 @@
     add_action('admin_menu','coderbits_profiler');
 
 	function coderbits_profiler() {
-		add_menu_page('Coderbits','Coderbits','edit_pages', 'coderbits_profiler', 'coderbits_profiler_options');
+        add_submenu_page('options-general.php', 'Coderbits Profiler', 'Coderbits Profiler', 'edit_pages', 'coderbits_profiler', 'coderbits_profiler_options');
 	}
     
     function coderbits_profiler_options(){

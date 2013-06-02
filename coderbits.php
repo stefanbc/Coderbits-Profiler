@@ -59,8 +59,16 @@
          
         // Getting results
         $result = curl_exec($ch); // Getting jSON result string
+
+        // Close request to clear up some resources
+        curl_close( $ch );
+
+        // Parse the JSON file
+        $output = json_decode($result);
         
-        echo $result;
+        // Output the name for example
+        echo $output->{'name'};
+        
     }
     
     

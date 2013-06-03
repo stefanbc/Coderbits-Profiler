@@ -43,8 +43,7 @@
         echo '<h2>Profile</h2>';
         echo '<form method="post">';
         echo '<div class="field">Current active Coderbits profile: <b>' . get_option('coderbits_username') . '</b></div>';
-        echo '<div class="field">Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"></div>';
-        echo '<input type="submit" name="update_coderbits_profiler" value="Set Profile">';
+        echo '<div class="field">Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_coderbits_profiler" value="Set Profile"></div>';
         echo '</form>';
 
         // The options part
@@ -59,6 +58,7 @@
         // The right part
         echo '<div class="right-wrapper sides">';
         echo '<h2>Preview</h2>';
+        echo '<div class="field">Nothing to see here, yet!</div>';
         echo '</div>';
 
         echo '</div>';

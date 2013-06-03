@@ -2,11 +2,11 @@
 	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
 	font-size: 14px;
+	width: 1080px;
 }
 .main-title {
 	border-bottom: 1px solid #ccc;
-	width: 300px;
-	margin: 20px 0;
+	margin: 20px 0 0 0;
 	display: block;
 	overflow: hidden;
 	padding: 10px 0;
@@ -30,6 +30,7 @@ input[type='checkbox'] {
 	padding: 20px;
 	min-height: 220px;
 	min-width: 370px;
+	width: 46%;
 }
 .field {
 	padding: 10px 0;

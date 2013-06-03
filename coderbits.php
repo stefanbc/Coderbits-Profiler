@@ -37,8 +37,6 @@
         
         if($username) {
             update_option('coderbits_profiler_username', $username);
-            $inactive_fields = array("avatar","areas","badges");
-            update_option('coderbits_profiler_inactive_fields', serialize($inactive_fields));
         }
 
         // Styling
@@ -97,8 +95,12 @@
             // The right part
             echo '<div class="sides">';
                 echo '<h2>Preview Widget</h2>';
-                echo unserialize(get_option('coderbits_profiler_inactive_fields'));
-                echo '<div class="row">Nothing to see here, yet!</div>';
+                $fields = unserialize(get_option('coderbits_profiler_active_fields'));
+                if (!empty($fields)) {
+                    
+                } else {
+                    echo '<div class="row">Nothing to see here, yet!</div>';
+                }
             echo '</div>';
         echo '</div>';
     }

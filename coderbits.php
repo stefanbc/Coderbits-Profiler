@@ -104,7 +104,7 @@
                         echo '</div>';
                     echo '</div>';
                     echo '</div>';
-                echo '<input type="submit" name="update_coderbits_profiler" value="Save Options">';
+                echo '<input type="submit" name="update_coderbits_profiler" value="Save Fields">';
                 echo '</form>';
             echo '</div>';
             // The right part

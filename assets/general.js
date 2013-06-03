@@ -26,10 +26,10 @@ $j(document).ready(function() {
     		rand: Math.random()
     	}, function(data){
     		if (data == 'Yes') {
-    			$j('h3').text('Fields updated!');
+    			$j('.zone-title-fields').text('Fields updated!');
 				setTimeout(function(){
-					$j('h3').text('Fields');    
-				}, 2000);
+					$j('.zone-title-fields').text('Fields');    
+				}, 2500);
     		}
     	});
 

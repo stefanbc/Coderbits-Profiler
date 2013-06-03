@@ -100,12 +100,24 @@
         curl_close($ch);
 
         // Parse the JSON file
-        $output = json_decode($result);
+        $output = json_decode($result,true);
         
         // Output the requested field
-        $return = $output->{$type};
+        $return = $output[$type];
 
-        return $return; 
+        if (is_array($return)) {
+            foreach ($return as $items) {
+                foreach($items as $key => $item){
+                    if ($key == 'name') {
+                        $data .= $item . ', '; 
+                    }
+                }  
+            }
+        } else {
+            $data = $return;
+        }
+        
+        return $data;
     }
     
     // We now create the widget and register it with WP
@@ -118,8 +130,11 @@
         
         // Output to frontend by the widget
     	function widget($args, $instance) {
-            echo '<div class="coderbits-field" id="coderbits-title">Title: ' . coderbits_profiler_data('title') . "</div>";
-            echo '<div class="coderbits-field" id="coderbits-name">Name: ' . coderbits_profiler_data('name')  . "</div>";
+            echo '<div class="coderbits-field" id="coderbits-avatar"><img src="http://www.gravatar.com/avatar/' . coderbits_profiler_data('gravatar_hash') . '" alt="avatar"></div>';
+            echo '<div class="coderbits-field" id="coderbits-name">' . coderbits_profiler_data('name')  . '</div>';
+            echo '<div class="coderbits-field" id="coderbits-title">' . coderbits_profiler_data('title') . '</div>';
+            echo 'Top Skills';
+            echo '<div class="coderbits-field" id="coderbits-title">' . coderbits_profiler_data('top_skills') . '</div>';
     	}
     }
     

@@ -26,7 +26,10 @@ $j(document).ready(function() {
     		rand: Math.random()
     	}, function(data){
     		if (data == 'Yes') {
-    			location.reload();
+    			$j('h3').text('Fields updated!');
+				setTimeout(function(){
+					$j('h3').text('Fields');    
+				}, 2000);
     		}
     	});
 

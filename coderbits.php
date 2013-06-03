@@ -50,14 +50,14 @@
             // The left part
             echo '<div class="sides">';
                 // The profile part
-                echo '<h2>Profile</h2>';
+                echo '<h2 class="zone-title-profile">Profile</h2>';
                 echo '<form method="post" id="profile_form">';
                     echo '<div class="row">Current active Coderbits profile: <b>' . get_option('coderbits_profiler_username') . '</b></div>';
                     echo '<div class="row">Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_coderbits_profiler" value="Set Profile"></div>';
                 echo '</form>';
 
                 // The options part
-                echo '<h2>Fields</h2>';
+                echo '<h2 class="zone-title-fields">Fields</h2>';
                 echo '<form method="post" id="fields_form">';
                     echo '<div class="fields_wrapper">';
                     echo '<div class="smaller-side">';
@@ -66,7 +66,9 @@
                             $query_active_fields = unserialize(get_option('coderbits_profiler_active_fields'));
                             if (!empty($query_active_fields)) {
                                 foreach ($query_active_fields as $active_field) {
-                                    echo '<span class="field" id="' . $active_field . '" draggable="true" ondragstart="dragField(this, event)">' . ucfirst($active_field) . '</span>';
+                                    if (!empty($active_field)) {
+                                        echo '<span class="field" id="' . $active_field . '" draggable="true" ondragstart="dragField(this, event)">' . ucfirst($active_field) . '</span>';
+                                    }
                                 }
                             }
                         echo '</div>';
@@ -107,7 +109,7 @@
             echo '</div>';
             // The right part
             echo '<div class="sides">';
-                echo '<h2>Preview Widget</h2>';
+                echo '<h2 class="zone-title-preview">Preview Widget</h2>';
                 // $fields = unserialize(get_option('coderbits_profiler_active_fields'));
                 // if (!empty($fields)) {
                 //     print_r($fields);

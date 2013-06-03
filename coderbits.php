@@ -25,7 +25,7 @@
     $plugin = plugin_basename( __FILE__ );
     add_filter("plugin_action_links_$plugin", 'coderbits_add_settings_link');
 
-    // Our plugin options
+    // Plugin options
     function coderbits_profiler_options(){
         global $wpdb;
 
@@ -75,8 +75,8 @@
         add_option('coderbits_active_fields', $active_fields);
     }
     
-    // Gather all the data and show it on the front end
-    function coderbits_profiler_data() {
+    // Get data from JSON file
+    function coderbits_profiler_data($type) {
         
         // jSON URL which should be requested
         $json_url = 'https://coderbits.com/' . get_option('coderbits_username') . '.json';
@@ -102,11 +102,10 @@
         // Parse the JSON file
         $output = json_decode($result);
         
-        // Output the name for example
-        $return = '<div class="coderbits-field" id="coderbits-name">Name: ' . $output->{'name'} . "</div>";
-        $return .= '<div class="coderbits-field" id="coderbits-title">Title: ' . $output->{'title'} . "</div>";
+        // Output the requested field
+        $return = $output->{$type};
 
-        echo $return; 
+        return $return; 
     }
     
     // We now create the widget and register it with WP
@@ -116,9 +115,11 @@
     		// Instantiate the parent object
     		parent::__construct(false, 'Coderbits Profiler');
     	}
-    
+        
+        // Output to frontend by the widget
     	function widget($args, $instance) {
-    		coderbits_profiler_data();
+            echo '<div class="coderbits-field" id="coderbits-title">Title: ' . coderbits_profiler_data('title') . "</div>";
+            echo '<div class="coderbits-field" id="coderbits-name">Name: ' . coderbits_profiler_data('name')  . "</div>";
     	}
     }
     

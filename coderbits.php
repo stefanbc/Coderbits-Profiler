@@ -30,12 +30,14 @@
         echo '</div>';
         
         $username = $wpdb->escape($_POST['username']);
+        $active_fields = '';
         
         if($username) {
             update_option('coderbits_username', $username); 
         }
                
         add_option('coderbits_username', $username);
+        add_option('coderbits_active_fields', $active_fields);
     }
     
     function coderbits_profiler_data() {

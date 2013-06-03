@@ -63,29 +63,42 @@
                     echo '<div class="smaller-side">';
                         echo '<h3>Active</h3>';
                         echo '<div class="active-fields zone" ondrop="dropField(this, event)" ondragenter="return false" ondragover="return false">';
+                            $query_active_fields = unserialize(get_option('coderbits_profiler_active_fields'));
+                            if (!empty($query_active_fields)) {
+                                foreach ($query_active_fields as $active_field) {
+                                    echo '<span class="field" id="' . $active_field . '" draggable="true" ondragstart="dragField(this, event)">' . ucfirst($active_field) . '</span>';
+                                }
+                            }
                         echo '</div>';
                     echo '</div>';
                     echo '<div class="smaller-side">';
                         echo '<h3>Inactive</h3>';
                         echo '<div class="inactive-fields zone" ondrop="dropField(this, event)" ondragenter="return false" ondragover="return false">';
-                            echo '<span class="field" draggable="true" id="name" ondragstart="dragField(this, event)">Name</span>';
-                            echo '<span class="field" draggable="true" id="title" ondragstart="dragField(this, event)">Title</span>';
-                            echo '<span class="field" draggable="true" id="location" ondragstart="dragField(this, event)">Location</span>';
-                            echo '<span class="field" draggable="true" id="bio" ondragstart="dragField(this, event)">Bio</span>';
-                            echo '<span class="field" draggable="true" id="views ondragstart="dragField(this, event)">Views</span>';
-                            echo '<span class="field" draggable="true" id="rank" ondragstart="dragField(this, event)">Rank</span>';
-                            echo '<span class="field" draggable="true" id="badges" ondragstart="dragField(this, event)">Badges</span>';
-                            echo '<span class="field" draggable="true" id="followers" ondragstart="dragField(this, event)">Followers</span>';
-                            echo '<span class="field" draggable="true" id="following" ondragstart="dragField(this, event)">Following</span>';
-                            echo '<span class="field" draggable="true" id="skills" ondragstart="dragField(this, event)">Skills</span>';
-                            echo '<span class="field" draggable="true" id="languages" ondragstart="dragField(this, event)">Languages</span>';
-                            echo '<span class="field" draggable="true" id="environments" ondragstart="dragField(this, event)">Environments</span>';
-                            echo '<span class="field" draggable="true" id="frameworks" ondragstart="dragField(this, event)">Frameworks</span>';
-                            echo '<span class="field" draggable="true" id="tools" ondragstart="dragField(this, event)">Tools</span>';
-                            echo '<span class="field" draggable="true" id="interests" ondragstart="dragField(this, event)">Interests</span>';
-                            echo '<span class="field" draggable="true" id="traits" ondragstart="dragField(this, event)">Traits</span>';
-                            echo '<span class="field" draggable="true" id="areas" ondragstart="dragField(this, event)">Areas</span>';
-                            echo '<span class="field" draggable="true" id="badges" ondragstart="dragField(this, event)">Badges</span>';
+                            $query_inactive_fields = unserialize(get_option('coderbits_profiler_inactive_fields'));
+                            if (!empty($query_inactive_fields)) {
+                                foreach ($query_inactive_fields as $inactive_field) {
+                                    echo '<span class="field" id="' . $inactive_field . '" draggable="true" ondragstart="dragField(this, event)">' . ucfirst($inactive_field) . '</span>';
+                                }
+                            } else {
+                                echo '<span class="field" draggable="true" id="name" ondragstart="dragField(this, event)">Name</span>';
+                                echo '<span class="field" draggable="true" id="title" ondragstart="dragField(this, event)">Title</span>';
+                                echo '<span class="field" draggable="true" id="location" ondragstart="dragField(this, event)">Location</span>';
+                                echo '<span class="field" draggable="true" id="bio" ondragstart="dragField(this, event)">Bio</span>';
+                                echo '<span class="field" draggable="true" id="views" ondragstart="dragField(this, event)">Views</span>';
+                                echo '<span class="field" draggable="true" id="rank" ondragstart="dragField(this, event)">Rank</span>';
+                                echo '<span class="field" draggable="true" id="badges" ondragstart="dragField(this, event)">Badges</span>';
+                                echo '<span class="field" draggable="true" id="followers" ondragstart="dragField(this, event)">Followers</span>';
+                                echo '<span class="field" draggable="true" id="following" ondragstart="dragField(this, event)">Following</span>';
+                                echo '<span class="field" draggable="true" id="skills" ondragstart="dragField(this, event)">Skills</span>';
+                                echo '<span class="field" draggable="true" id="languages" ondragstart="dragField(this, event)">Languages</span>';
+                                echo '<span class="field" draggable="true" id="environments" ondragstart="dragField(this, event)">Environments</span>';
+                                echo '<span class="field" draggable="true" id="frameworks" ondragstart="dragField(this, event)">Frameworks</span>';
+                                echo '<span class="field" draggable="true" id="tools" ondragstart="dragField(this, event)">Tools</span>';
+                                echo '<span class="field" draggable="true" id="interests" ondragstart="dragField(this, event)">Interests</span>';
+                                echo '<span class="field" draggable="true" id="traits" ondragstart="dragField(this, event)">Traits</span>';
+                                echo '<span class="field" draggable="true" id="areas" ondragstart="dragField(this, event)">Areas</span>';
+                                echo '<span class="field" draggable="true" id="badges" ondragstart="dragField(this, event)">Badges</span>';
+                            }
                         echo '</div>';
                     echo '</div>';
                     echo '</div>';
@@ -95,12 +108,12 @@
             // The right part
             echo '<div class="sides">';
                 echo '<h2>Preview Widget</h2>';
-                $fields = unserialize(get_option('coderbits_profiler_active_fields'));
-                if (!empty($fields)) {
-                    print_r($fields);
-                } else {
+                // $fields = unserialize(get_option('coderbits_profiler_active_fields'));
+                // if (!empty($fields)) {
+                //     print_r($fields);
+                // } else {
                     echo '<div class="row">Nothing to see here, yet!</div>';
-                }
+                //}
             echo '</div>';
         echo '</div>';
     }

@@ -19,22 +19,17 @@ $j(document).ready(function() {
 		    return $j(this).attr("id");
 		}).get().join(",");
 
-		console.log(post_active_fields);
-		console.log(post_inactive_fields);
-
     	$j.post("../wp-content/plugins/coderbits/assets/ajax.php", {
     		action: "save_fields",
     		active_fields : post_active_fields,
     		inactive_fields : post_inactive_fields,
     		rand: Math.random()
     	}, function(data){
-    		console.log(data);
     		if (data == 'Yes') {
-    			//location.reload();
+    			location.reload();
     		}
     	});
 
-	    // Not to post the form physically
 		return false;
     });
 

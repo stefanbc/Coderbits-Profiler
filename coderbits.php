@@ -51,14 +51,14 @@
             echo '<div class="sides">';
                 // The profile part
                 echo '<h2>Profile</h2>';
-                echo '<form method="post">';
+                echo '<form method="post" id="profile_form">';
                     echo '<div class="row">Current active Coderbits profile: <b>' . get_option('coderbits_profiler_username') . '</b></div>';
                     echo '<div class="row">Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_coderbits_profiler" value="Set Profile"></div>';
                 echo '</form>';
 
                 // The options part
                 echo '<h2>Fields</h2>';
-                echo '<form method="post">';
+                echo '<form method="post" id="fields_form">';
                     echo '<div class="fields_wrapper">';
                     echo '<div class="smaller-side">';
                         echo '<h3>Active</h3>';

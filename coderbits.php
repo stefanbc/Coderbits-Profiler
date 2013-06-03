@@ -2,8 +2,8 @@
     /*
         Plugin Name: Coderbits Profiler
         Plugin URI: https://github.com/stefanbc/Coderbits-Profiler
-        Description: Grabs Coderbits JSON data and displays it in your WordPress site.
-        Version: 0.1
+        Description: Grabs Coderbits JSON user data and displays it in your WordPress site as a widget.
+        Version: 0.9
         Author: Stefan Cosma
         Author URI: http://coderbits.com/stefanbc
         License: MIT

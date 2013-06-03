@@ -2,7 +2,7 @@
     /*
         Plugin Name: Coderbits Profiler
         Plugin URI: https://github.com/stefanbc/Coderbits-Profiler
-        Description: Made for Wordpress
+        Description: Grabs Coderbits JSON data and displays it in your WordPress site.
         Version: 0.1
         Author: Stefan Cosma
         Author URI: http://coderbits.com/stefanbc
@@ -15,6 +15,17 @@
         add_submenu_page('options-general.php', 'Coderbits Profiler', 'Coderbits Profiler', 'edit_pages', 'coderbits_profiler', 'coderbits_profiler_options');
 	}
     
+    // Add settings link to plugins list
+    function coderbits_add_settings_link($links) {
+        $settings_link = '<a href="options-general.php?page=coderbits_profiler">Settings</a>';
+        array_push($links, $settings_link);
+        return $links;
+    }
+    
+    $plugin = plugin_basename( __FILE__ );
+    add_filter("plugin_action_links_$plugin", 'coderbits_add_settings_link');
+
+    // Our plugin options
     function coderbits_profiler_options(){
         global $wpdb;
 
@@ -64,6 +75,7 @@
         add_option('coderbits_active_fields', $active_fields);
     }
     
+    // Gather all the data and show it on the front end
     function coderbits_profiler_data() {
         
         // jSON URL which should be requested
@@ -97,7 +109,7 @@
         echo $return; 
     }
     
-    
+    // We now create the widget and register it with WP
     class CoderbitsWidget extends WP_Widget {
 
         function CoderbitsWidget() {

@@ -57,7 +57,7 @@
                 echo '</form>';
 
                 // The options part
-                echo '<h2 class="zone-title-fields">Fields</h2>';
+                echo '<h2 class="zone-title-fields">Fields <small><i>*Manage active/inactive fields</i></small></h2>';
                 echo '<form method="post" id="fields_form">';
                     echo '<div class="fields_wrapper">';
                     echo '<div class="smaller-side">';
@@ -85,7 +85,9 @@
                                         echo '<span class="field" id="' . $inactive_field . '" draggable="true" ondragstart="dragField(this, event)">' . ucfirst($inactive_field) . '</span>';
                                     }
                                 }
-                            } else {
+                            } 
+                            // If there are no fields set show the default ones
+                            else {
                                 echo '<span class="field" draggable="true" id="name" ondragstart="dragField(this, event)">Name</span>';
                                 echo '<span class="field" draggable="true" id="title" ondragstart="dragField(this, event)">Title</span>';
                                 echo '<span class="field" draggable="true" id="location" ondragstart="dragField(this, event)">Location</span>';
@@ -113,7 +115,7 @@
             echo '</div>';
             // The right part
             echo '<div class="sides">';
-                echo '<h2 class="zone-title-preview">Preview Widget</h2>';
+                echo '<h2 class="zone-title-preview">Preview Widget <small><i>*Preview widget based on your settings</i></small></h2>';
                 // $fields = unserialize(get_option('coderbits_profiler_active_fields'));
                 // if (!empty($fields)) {
                 //     print_r($fields);

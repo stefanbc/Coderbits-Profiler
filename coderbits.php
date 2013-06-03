@@ -18,7 +18,7 @@
     function coderbits_profiler_options(){
         global $wpdb;
 
-        echo '<link href="../wp-content/plugins/coderbits/style.css" rel="stylesheet" type="text/css">';
+        echo '<link href="../wp-content/plugins/coderbits/assets/style.css" rel="stylesheet" type="text/css">';
         echo "<h1 class='main-title'>Coderbits Profiler</h1>";    
         echo '<form method="post">';
         echo '<div style="padding: 10px 0;">Current set Coderbits Profile: <b>' . get_option('coderbits_username') . '</b></div>';

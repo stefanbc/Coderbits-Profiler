@@ -16,23 +16,20 @@
 	}
     
     function coderbits_profiler_options(){
-        
         global $wpdb;
 
         echo '<link href="../wp-content/plugins/coderbits/style.css" rel="stylesheet" type="text/css">';
         echo "<h1 class='main-title'>Coderbits Profiler</h1>";    
         echo '<form method="post">';
-            echo '<div style="padding: 10px 0;">Current set Coderbits Profile: <b>' . get_option('coderbits_username') . '</b></div>';
-            echo 'Set Coderbits Profile: <input type="text" name="username" id="username" placeholder="Enter you coderbits username">';
-            echo '<input type="submit" value="Set Profile">';
+        echo '<div style="padding: 10px 0;">Current set Coderbits Profile: <b>' . get_option('coderbits_username') . '</b></div>';
+        echo 'Set Coderbits Profile: <input type="text" name="username" id="username" placeholder="Enter you coderbits username">';
+        echo '<input type="submit" value="Set Profile">';
         echo '</form>';
         
         $username = $wpdb->escape($_POST['username']);
         
         if($username) {
-            
-            update_option('coderbits_username', $username);
-            
+            update_option('coderbits_username', $username); 
         }
                
         add_option('coderbits_username', $username);
@@ -44,7 +41,7 @@
         $json_url = 'https://coderbits.com/' . get_option('coderbits_username') . '.json';
          
         // Initializing curl
-        $ch = curl_init( $json_url );
+        $ch = curl_init($json_url);
          
         // Configuring curl options
         $options = array(
@@ -53,13 +50,13 @@
         );
          
         // Setting curl options
-        curl_setopt_array( $ch, $options );
+        curl_setopt_array($ch, $options);
          
         // Getting results
         $result = curl_exec($ch); // Getting jSON result string
 
         // Close request to clear up some resources
-        curl_close( $ch );
+        curl_close($ch);
 
         // Parse the JSON file
         $output = json_decode($result);
@@ -68,8 +65,7 @@
         $return = '<div class="coderbits-field" id="coderbits-name">Name: ' . $output->{'name'} . "</div>";
         $return .= '<div class="coderbits-field" id="coderbits-title">Title: ' . $output->{'title'} . "</div>";
 
-        echo $return;
-        
+        echo $return; 
     }
     
     
@@ -77,18 +73,17 @@
 
         function CoderbitsWidget() {
     		// Instantiate the parent object
-    		parent::__construct( false, 'Coderbits Profiler' );
+    		parent::__construct(false, 'Coderbits Profiler');
     	}
     
-    	function widget( $args, $instance ) {
+    	function widget($args, $instance) {
     		coderbits_profiler_data();
     	}
-    
     }
     
     function coderbits_profiler_register_widgets() {
-    	register_widget( 'CoderbitsWidget' );
+    	register_widget('CoderbitsWidget');
     }
     
-    add_action( 'widgets_init', 'coderbits_profiler_register_widgets' );
+    add_action('widgets_init', 'coderbits_profiler_register_widgets');
 ?>

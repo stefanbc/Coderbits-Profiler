@@ -88,15 +88,14 @@
         echo '</div>';
         
         $username = $wpdb->escape($_POST['username']);
-        $active_fields = '';
         
         if($username) {
             update_option('coderbits_username', $username); 
         }
                
         add_option('coderbits_username', $username);
-        add_option('coderbits_profiler_options', $options);
         add_option('coderbits_active_fields', $active_fields);
+        add_option('coderbits_inactive_fields', $inactive_fields);
     }
     
     // Get data from JSON file

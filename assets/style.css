@@ -17,12 +17,13 @@
 	width: 107px;
 	vertical-align: middle;
 }
-h2 {
+h2, h3 {
 	font-weight: 300;
 	color: #d34a00;
 }
 input[type='checkbox'] {
 	vertical-align: middle;
+	margin-bottom: 5px;
 }
 .sides {
 	float: left;
@@ -31,6 +32,16 @@ input[type='checkbox'] {
 	min-height: 220px;
 	min-width: 370px;
 	width: 46%;
+}
+.smaller-side {
+	float: left;
+	overflow: hidden;
+	padding: 0 20px;
+	min-height: 220px;
+	width: 41%;
+}
+.zone {
+	border: 1px dashed #ccc;
 }
 .field {
 	padding: 10px 0;

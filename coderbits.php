@@ -35,32 +35,38 @@
 
         // Start the content part
         echo '<div class="main-wrapper">';
-        echo '<span class="main-title"><img class="logo" src="' . plugins_url( 'assets/logo.png' , __FILE__ ) . '" alt="coderbits"> Profiler</span>';
+            echo '<span class="main-title"><img class="logo" src="' . plugins_url( 'assets/logo.png' , __FILE__ ) . '" alt="coderbits"> Profiler</span>';
+            // The left part
+            echo '<div class="sides">';
+                // The profile part
+                echo '<h2>Profile</h2>';
+                echo '<form method="post">';
+                    echo '<div class="field">Current active Coderbits profile: <b>' . get_option('coderbits_username') . '</b></div>';
+                    echo '<div class="field">Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_coderbits_profiler" value="Set Profile"></div>';
+                echo '</form>';
 
-        // The left part
-        echo '<div class="left-wrapper sides">';
-        // The profile part
-        echo '<h2>Profile</h2>';
-        echo '<form method="post">';
-        echo '<div class="field">Current active Coderbits profile: <b>' . get_option('coderbits_username') . '</b></div>';
-        echo '<div class="field">Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_coderbits_profiler" value="Set Profile"></div>';
-        echo '</form>';
+                // The options part
+                echo '<h2>Active fields</h2>';
+                echo '<form method="post">';
+                    echo '<div class="smaller-side">';
+                        echo '<h3>Inactive Fields</h3>';
+                        echo '<div class="active_fields zone">';
+                        echo '</div>';
+                    echo '</div>';
+                    echo '<div class="smaller-side">';
+                        echo '<h3>Active Fields</h3>';
+                        echo '<div class="inactive_fields zone">';
 
-        // The options part
-        echo '<h2>Options</h2>';
-        echo '<form method="post">';
-        echo '<div class="field"><input type="checkbox" name="styling" id="styling"> Use plugin styling?</div>';
-        echo '';
-        echo '<input type="submit" name="update_coderbits_profiler" value="Save Options">';
-        echo '</form>';
-        echo '</div>';
-        
-        // The right part
-        echo '<div class="right-wrapper sides">';
-        echo '<h2>Preview</h2>';
-        echo '<div class="field">Nothing to see here, yet!</div>';
-        echo '</div>';
-
+                        echo '</div>';
+                    echo '</div>';
+                echo '<input type="submit" name="update_coderbits_profiler" value="Save Options">';
+                echo '</form>';
+            echo '</div>';
+            // The right part
+            echo '<div class="sides">';
+                echo '<h2>Preview</h2>';
+                echo '<div class="field">Nothing to see here, yet!</div>';
+            echo '</div>';
         echo '</div>';
         
         $username = $wpdb->escape($_POST['username']);
@@ -100,14 +106,16 @@
         curl_close($ch);
 
         // Parse the JSON file
-        $output = json_decode($result,true);
+        $output = json_decode($result, true);
         
         // Output the requested field
         $return = $output[$type];
 
+        // Check if the field has details
         if (is_array($return)) {
             foreach ($return as $items) {
                 foreach($items as $key => $item){
+                    // Check if the key from the loop is the chosen type
                     if ($key == $subtype) {
                         $data .= $item . ', '; 
                     }
@@ -135,6 +143,13 @@
             echo '<div class="coderbits-field" id="coderbits-title">' . coderbits_profiler_data('title') . '</div>';
             echo 'Top Skills';
             echo '<div class="coderbits-field" id="coderbits-title">' . coderbits_profiler_data('top_skills','name') . '</div>';
+
+            $badges = coderbits_profiler_data('one_bit_badges') + coderbits_profiler_data('eight_bit_badges') + coderbits_profiler_data('sixteen_bit_badges') + coderbits_profiler_data('thirty_two_bit_badges') + coderbits_profiler_data('sixty_four_bit_badges');
+            echo '<div class="coderbits-field" id="coderbits-title">Badges ' . $badges . '</div>';
+
+            echo '<div class="coderbits-field" id="coderbits-title">Views ' . coderbits_profiler_data('views') . '</div>';
+            echo '<div class="coderbits-field" id="coderbits-title">Followers ' . coderbits_profiler_data('follower_count') . '</div>';
+            echo '<div class="coderbits-field" id="coderbits-title">Friends ' . coderbits_profiler_data('following_count') . '</div>';
     	}
     }
     

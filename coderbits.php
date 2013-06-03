@@ -29,6 +29,18 @@
     function coderbits_profiler_options(){
         global $wpdb;
 
+        add_option('coderbits_profiler_username', $username);
+        add_option('coderbits_profiler_active_fields', $active_fields);
+        add_option('coderbits_profiler_inactive_fields', $inactive_fields);
+
+        $username = $wpdb->escape($_POST['username']);
+        
+        if($username) {
+            update_option('coderbits_profiler_username', $username);
+            $inactive_fields = array("avatar","areas","badges");
+            update_option('coderbits_profiler_inactive_fields', serialize($inactive_fields));
+        }
+
         // Styling
         echo '<link href="//fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet" type="text/css">';
         echo '<link href="' . plugins_url( 'assets/style.css' , __FILE__ ) . '" rel="stylesheet" type="text/css">';
@@ -42,7 +54,7 @@
                 // The profile part
                 echo '<h2>Profile</h2>';
                 echo '<form method="post">';
-                    echo '<div class="row">Current active Coderbits profile: <b>' . get_option('coderbits_username') . '</b></div>';
+                    echo '<div class="row">Current active Coderbits profile: <b>' . get_option('coderbits_profiler_username') . '</b></div>';
                     echo '<div class="row">Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_coderbits_profiler" value="Set Profile"></div>';
                 echo '</form>';
 
@@ -84,27 +96,18 @@
             echo '</div>';
             // The right part
             echo '<div class="sides">';
-                echo '<h2>Preview</h2>';
+                echo '<h2>Preview Widget</h2>';
+                echo unserialize(get_option('coderbits_profiler_inactive_fields'));
                 echo '<div class="row">Nothing to see here, yet!</div>';
             echo '</div>';
         echo '</div>';
-        
-        $username = $wpdb->escape($_POST['username']);
-        
-        if($username) {
-            update_option('coderbits_username', $username); 
-        }
-               
-        add_option('coderbits_username', $username);
-        add_option('coderbits_active_fields', $active_fields);
-        add_option('coderbits_inactive_fields', $inactive_fields);
     }
     
     // Get data from JSON file
     function coderbits_profiler_data($type, $subtype = '') {
         
         // jSON URL which should be requested
-        $json_url = 'https://coderbits.com/' . get_option('coderbits_username') . '.json';
+        $json_url = 'https://coderbits.com/' . get_option('coderbits_profiler_username') . '.json';
          
         // Initializing curl
         $ch = curl_init($json_url);
@@ -148,9 +151,9 @@
     }
     
     // We now create the widget and register it with WP
-    class CoderbitsWidget extends WP_Widget {
+    class CoderbitsProfilerWidget extends WP_Widget {
 
-        function CoderbitsWidget() {
+        function CoderbitsProfilerWidget() {
     		// Instantiate the parent object
     		parent::__construct(false, 'Coderbits Profiler');
     	}
@@ -173,7 +176,7 @@
     }
     
     function coderbits_profiler_register_widgets() {
-    	register_widget('CoderbitsWidget');
+    	register_widget('CoderbitsProfilerWidget');
     }
     
     add_action('widgets_init', 'coderbits_profiler_register_widgets');

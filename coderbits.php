@@ -76,7 +76,7 @@
     }
     
     // Get data from JSON file
-    function coderbits_profiler_data($type) {
+    function coderbits_profiler_data($type, $subtype = '') {
         
         // jSON URL which should be requested
         $json_url = 'https://coderbits.com/' . get_option('coderbits_username') . '.json';
@@ -108,7 +108,7 @@
         if (is_array($return)) {
             foreach ($return as $items) {
                 foreach($items as $key => $item){
-                    if ($key == 'name') {
+                    if ($key == $subtype) {
                         $data .= $item . ', '; 
                     }
                 }  
@@ -134,7 +134,7 @@
             echo '<div class="coderbits-field" id="coderbits-name">' . coderbits_profiler_data('name')  . '</div>';
             echo '<div class="coderbits-field" id="coderbits-title">' . coderbits_profiler_data('title') . '</div>';
             echo 'Top Skills';
-            echo '<div class="coderbits-field" id="coderbits-title">' . coderbits_profiler_data('top_skills') . '</div>';
+            echo '<div class="coderbits-field" id="coderbits-title">' . coderbits_profiler_data('top_skills','name') . '</div>';
     	}
     }
     

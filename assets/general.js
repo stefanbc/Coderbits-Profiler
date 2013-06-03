@@ -11,18 +11,13 @@ $j(document).ready(function() {
 
     $j("#fields_form").submit(function(){
 
-    	var post_active_fields = [];
-		var post_inactive_fields = [];
+    	var post_active_fields = $j(".active-fields").children('span').map(function() {
+		    return $j(this).attr("id");
+		}).get().join(",");
 
-		$j(".active_fields .field").each(function() {
-		    var field = $j(this).getAttribute("data-id");
-		    post_active_fields.push(field);
-		});
-
-		$j(".inactive_fields .field").each(function() {
-		    var field = $j(this).getAttribute("data-id");
-		    post_inactive_fields.push(field);
-		});
+		var post_inactive_fields = $j(".inactive-fields").children('span').map(function() {
+		    return $j(this).attr("id");
+		}).get().join(",");
 
 		console.log(post_active_fields);
 		console.log(post_inactive_fields);

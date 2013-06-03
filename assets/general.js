@@ -19,7 +19,7 @@ function dropField(target, event) {
 			    return $(this).attr("id");
 			}).get().join(",");
 
-	    	$.post("../wp-content/plugins/coderbits/assets/ajax.php", {
+	    	$.post("../wp-content/plugins/coderbits-profiler/assets/ajax.php", {
 	    		action: "save_fields",
 	    		active_fields : post_active_fields,
 	    		inactive_fields : post_inactive_fields,
@@ -35,6 +35,6 @@ function dropField(target, event) {
 
 			return false;
 	    });
-	    
+
 	});
 })(jQuery)

@@ -48,6 +48,9 @@ input[type='checkbox'] {
 .row {
 	padding: 10px 0;
 }
+.fields_wrapper {
+	overflow: hidden;
+}
 .inactive-fields .field {
 	background: #aaa;
 }

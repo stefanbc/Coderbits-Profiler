@@ -49,6 +49,7 @@
                 // The options part
                 echo '<h2>Fields</h2>';
                 echo '<form method="post">';
+                    echo '<div class="fields_wrapper">';
                     echo '<div class="smaller-side">';
                         echo '<h3>Active</h3>';
                         echo '<div class="active-fields zone" ondrop="dropField(this, event)" ondragenter="return false" ondragover="return false">';
@@ -76,6 +77,7 @@
                             echo '<span class="field" draggable="true" id="areas" ondragstart="dragField(this, event)">Areas</span>';
                             echo '<span class="field" draggable="true" id="badges" ondragstart="dragField(this, event)">Badges</span>';
                         echo '</div>';
+                    echo '</div>';
                     echo '</div>';
                 echo '<input type="submit" name="update_coderbits_profiler" value="Save Options">';
                 echo '</form>';

@@ -21,3 +21,10 @@ h2 {
 	font-weight: 300;
 	color: #d34a00;
 }
+.sides {
+	float: left;
+	overflow: hidden;
+	padding: 20px;
+	min-height: 220px;
+	min-width: 370px;
+}

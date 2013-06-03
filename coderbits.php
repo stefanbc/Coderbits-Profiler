@@ -19,13 +19,20 @@
         global $wpdb;
 
         echo '<link href="//fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet" type="text/css">';
-        echo '<link href="../wp-content/plugins/coderbits/assets/style.css" rel="stylesheet" type="text/css">';
+        echo '<link href="' . plugins_url( 'assets/style.css' , __FILE__ ) . '" rel="stylesheet" type="text/css">';
         echo '<div class="main-wrapper">';
-        echo '<span class="main-title"><img class="logo" src="../wp-content/plugins/coderbits/assets/logo.png" alt="coderbits"> Profiler</span>';    
+        echo '<span class="main-title"><img class="logo" src="' . plugins_url( 'assets/logo.png' , __FILE__ ) . '" alt="coderbits"> Profiler</span>';
+        echo '<h2>Profile</h2>';
         echo '<form method="post">';
         echo '<div style="padding: 10px 0;">Current set Coderbits Profile: <b>' . get_option('coderbits_username') . '</b></div>';
         echo 'Set Coderbits Profile: <input type="text" name="username" id="username" placeholder="Enter you coderbits username">';
-        echo '<input type="submit" value="Set Profile">';
+        echo '<input type="submit" name="update_coderbits_profiler" value="Set Profile">';
+        echo '</form>';
+        echo '<h2>Options</h2>';
+        echo '<form method="post">';
+        echo '';
+        echo '';
+        echo '<input type="submit" name="update_coderbits_profiler" value="Save Options">';
         echo '</form>';
         echo '</div>';
         
@@ -37,6 +44,7 @@
         }
                
         add_option('coderbits_username', $username);
+        add_option('coderbits_profiler_options', $options);
         add_option('coderbits_active_fields', $active_fields);
     }
     

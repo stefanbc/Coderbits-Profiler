@@ -42,15 +42,15 @@
         // The profile part
         echo '<h2>Profile</h2>';
         echo '<form method="post">';
-        echo '<div style="padding: 10px 0;">Current set Coderbits Profile: <b>' . get_option('coderbits_username') . '</b></div>';
-        echo 'Set Coderbits Profile: <input type="text" name="username" id="username" placeholder="Enter you coderbits username">';
+        echo '<div class="field">Current active Coderbits profile: <b>' . get_option('coderbits_username') . '</b></div>';
+        echo '<div class="field">Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"></div>';
         echo '<input type="submit" name="update_coderbits_profiler" value="Set Profile">';
         echo '</form>';
 
         // The options part
         echo '<h2>Options</h2>';
         echo '<form method="post">';
-        echo '';
+        echo '<div class="field"><input type="checkbox" name="styling" id="styling"> Use plugin styling?</div>';
         echo '';
         echo '<input type="submit" name="update_coderbits_profiler" value="Save Options">';
         echo '</form>';

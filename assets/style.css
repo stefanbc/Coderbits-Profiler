@@ -21,10 +21,16 @@ h2 {
 	font-weight: 300;
 	color: #d34a00;
 }
+input[type='checkbox'] {
+	vertical-align: middle;
+}
 .sides {
 	float: left;
 	overflow: hidden;
 	padding: 20px;
 	min-height: 220px;
 	min-width: 370px;
+}
+.field {
+	padding: 10px 0;
 }

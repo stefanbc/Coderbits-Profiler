@@ -18,13 +18,16 @@
     function coderbits_profiler_options(){
         global $wpdb;
 
+        echo '<link href="//fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet" type="text/css">';
         echo '<link href="../wp-content/plugins/coderbits/assets/style.css" rel="stylesheet" type="text/css">';
-        echo "<h1 class='main-title'>Coderbits Profiler</h1>";    
+        echo '<div class="main-wrapper">';
+        echo '<span class="main-title"><img class="logo" src="../wp-content/plugins/coderbits/assets/logo.png" alt="coderbits"> Profiler</span>';    
         echo '<form method="post">';
         echo '<div style="padding: 10px 0;">Current set Coderbits Profile: <b>' . get_option('coderbits_username') . '</b></div>';
         echo 'Set Coderbits Profile: <input type="text" name="username" id="username" placeholder="Enter you coderbits username">';
         echo '<input type="submit" value="Set Profile">';
         echo '</form>';
+        echo '</div>';
         
         $username = $wpdb->escape($_POST['username']);
         

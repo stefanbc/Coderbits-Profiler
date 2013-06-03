@@ -1,5 +1,19 @@
-.main-title {
-	border-bottom: 1px solid #ccc;
-	padding-bottom: 10px;
-	width: 300px;
+.main-wrapper {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	font-size: 14px;
+}
+.main-title {
+	border-bottom: 1px solid #ccc;
+	width: 300px;
+	margin: 20px 0;
+	display: block;
+	overflow: hidden;
+	padding: 10px 0;
+	font-size: 22px;
+}
+.logo {
+	height: 40px;
+	width: 107px;
+	vertical-align: middle;
 }

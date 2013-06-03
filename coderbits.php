@@ -50,7 +50,7 @@
             // The left part
             echo '<div class="sides">';
                 // The profile part
-                echo '<h2 class="zone-title-profile">Profile</h2>';
+                echo '<h2 class="zone-title-profile">Profile <small><i>*Update profile options here</i></small></h2>';
                 echo '<form method="post" id="profile_form">';
                     echo '<div class="row">Current active Coderbits profile: <b>' . get_option('coderbits_profiler_username') . '</b></div>';
                     echo '<div class="row">Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_coderbits_profiler" value="Set Profile"></div>';
@@ -63,6 +63,7 @@
                     echo '<div class="smaller-side">';
                         echo '<h3>Active</h3>';
                         echo '<div class="active-fields zone" ondrop="dropField(this, event)" ondragenter="return false" ondragover="return false">';
+                            // Get the active fields
                             $query_active_fields = unserialize(get_option('coderbits_profiler_active_fields'));
                             if (!empty($query_active_fields)) {
                                 foreach ($query_active_fields as $active_field) {
@@ -76,10 +77,13 @@
                     echo '<div class="smaller-side">';
                         echo '<h3>Inactive</h3>';
                         echo '<div class="inactive-fields zone" ondrop="dropField(this, event)" ondragenter="return false" ondragover="return false">';
+                            // Get the inactive fields
                             $query_inactive_fields = unserialize(get_option('coderbits_profiler_inactive_fields'));
                             if (!empty($query_inactive_fields)) {
                                 foreach ($query_inactive_fields as $inactive_field) {
-                                    echo '<span class="field" id="' . $inactive_field . '" draggable="true" ondragstart="dragField(this, event)">' . ucfirst($inactive_field) . '</span>';
+                                    if (!empty($inactive_field)) {
+                                        echo '<span class="field" id="' . $inactive_field . '" draggable="true" ondragstart="dragField(this, event)">' . ucfirst($inactive_field) . '</span>';
+                                    }
                                 }
                             } else {
                                 echo '<span class="field" draggable="true" id="name" ondragstart="dragField(this, event)">Name</span>';

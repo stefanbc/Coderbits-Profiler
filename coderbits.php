@@ -32,6 +32,7 @@
         // Styling
         echo '<link href="//fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet" type="text/css">';
         echo '<link href="' . plugins_url( 'assets/style.css' , __FILE__ ) . '" rel="stylesheet" type="text/css">';
+        echo '<script src="' . plugins_url( 'assets/general.js' , __FILE__ ) . '" type="text/javascript"></script>';
 
         // Start the content part
         echo '<div class="main-wrapper">';
@@ -41,22 +42,39 @@
                 // The profile part
                 echo '<h2>Profile</h2>';
                 echo '<form method="post">';
-                    echo '<div class="field">Current active Coderbits profile: <b>' . get_option('coderbits_username') . '</b></div>';
-                    echo '<div class="field">Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_coderbits_profiler" value="Set Profile"></div>';
+                    echo '<div class="row">Current active Coderbits profile: <b>' . get_option('coderbits_username') . '</b></div>';
+                    echo '<div class="row">Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_coderbits_profiler" value="Set Profile"></div>';
                 echo '</form>';
 
                 // The options part
-                echo '<h2>Active fields</h2>';
+                echo '<h2>Fields</h2>';
                 echo '<form method="post">';
                     echo '<div class="smaller-side">';
-                        echo '<h3>Inactive Fields</h3>';
-                        echo '<div class="active_fields zone">';
+                        echo '<h3>Active</h3>';
+                        echo '<div class="active-fields zone" ondrop="dropField(this, event)" ondragenter="return false" ondragover="return false">';
                         echo '</div>';
                     echo '</div>';
                     echo '<div class="smaller-side">';
-                        echo '<h3>Active Fields</h3>';
-                        echo '<div class="inactive_fields zone">';
-
+                        echo '<h3>Inactive</h3>';
+                        echo '<div class="inactive-fields zone" ondrop="dropField(this, event)" ondragenter="return false" ondragover="return false">';
+                            echo '<span class="field" draggable="true" id="name" ondragstart="dragField(this, event)">Name</span>';
+                            echo '<span class="field" draggable="true" id="title" ondragstart="dragField(this, event)">Title</span>';
+                            echo '<span class="field" draggable="true" id="location" ondragstart="dragField(this, event)">Location</span>';
+                            echo '<span class="field" draggable="true" id="bio" ondragstart="dragField(this, event)">Bio</span>';
+                            echo '<span class="field" draggable="true" id="views" ondragstart="dragField(this, event)">Views</span>';
+                            echo '<span class="field" draggable="true" id="rank" ondragstart="dragField(this, event)">Rank</span>';
+                            echo '<span class="field" draggable="true" id="badges" ondragstart="dragField(this, event)">Badges</span>';
+                            echo '<span class="field" draggable="true" id="followers" ondragstart="dragField(this, event)">Followers</span>';
+                            echo '<span class="field" draggable="true" id="following" ondragstart="dragField(this, event)">Following</span>';
+                            echo '<span class="field" draggable="true" id="skills" ondragstart="dragField(this, event)">Skills</span>';
+                            echo '<span class="field" draggable="true" id="languages" ondragstart="dragField(this, event)">Languages</span>';
+                            echo '<span class="field" draggable="true" id="environments" ondragstart="dragField(this, event)">Environments</span>';
+                            echo '<span class="field" draggable="true" id="frameworks" ondragstart="dragField(this, event)">Frameworks</span>';
+                            echo '<span class="field" draggable="true" id="tools" ondragstart="dragField(this, event)">Tools</span>';
+                            echo '<span class="field" draggable="true" id="interests" ondragstart="dragField(this, event)">Interests</span>';
+                            echo '<span class="field" draggable="true" id="traits" ondragstart="dragField(this, event)">Traits</span>';
+                            echo '<span class="field" draggable="true" id="areas" ondragstart="dragField(this, event)">Areas</span>';
+                            echo '<span class="field" draggable="true" id="badges" ondragstart="dragField(this, event)">Badges</span>';
                         echo '</div>';
                     echo '</div>';
                 echo '<input type="submit" name="update_coderbits_profiler" value="Save Options">';
@@ -65,7 +83,7 @@
             // The right part
             echo '<div class="sides">';
                 echo '<h2>Preview</h2>';
-                echo '<div class="field">Nothing to see here, yet!</div>';
+                echo '<div class="row">Nothing to see here, yet!</div>';
             echo '</div>';
         echo '</div>';
         

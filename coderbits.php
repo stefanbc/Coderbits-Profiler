@@ -11,6 +11,7 @@
     
     add_action('admin_menu','coderbits_profiler');
 
+    // create submenu page in the WordPress Settings menu
 	function coderbits_profiler() {
         add_submenu_page('options-general.php', 'Coderbits Profiler', 'Coderbits Profiler', 'edit_pages', 'coderbits_profiler', 'coderbits_profiler_options');
 	}
@@ -21,7 +22,6 @@
         array_push($links, $settings_link);
         return $links;
     }
-    
     $plugin = plugin_basename( __FILE__ );
     add_filter("plugin_action_links_$plugin", 'coderbits_add_settings_link');
 
@@ -29,17 +29,20 @@
     function coderbits_profiler_options(){
         global $wpdb;
 
+        // Add the needed options to the wp_options table
         add_option('coderbits_profiler_username', $username);
         add_option('coderbits_profiler_active_fields', $active_fields);
         add_option('coderbits_profiler_inactive_fields', $inactive_fields);
 
+        // Get the username
         $username = $wpdb->escape($_POST['username']);
         
+        // Updated the username setting with the current set username
         if($username) {
             update_option('coderbits_profiler_username', $username);
         }
 
-        // Styling
+        // Styling and scripting
         echo '<link href="//fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet" type="text/css">';
         echo '<link href="' . plugins_url( 'assets/style.css' , __FILE__ ) . '" rel="stylesheet" type="text/css">';
         echo '<script src="' . plugins_url( 'assets/general.js' , __FILE__ ) . '" type="text/javascript"></script>';
@@ -56,7 +59,7 @@
                     echo '<div class="row">Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_coderbits_profiler" value="Set Profile"></div>';
                 echo '</form>';
 
-                // The options part
+                // The fields part
                 echo '<h2 class="zone-title-fields">Fields <small><i>*Manage active/inactive fields</i></small></h2>';
                 echo '<form method="post" id="fields_form">';
                     echo '<div class="fields_wrapper">';
@@ -68,7 +71,11 @@
                             if (!empty($query_active_fields)) {
                                 foreach ($query_active_fields as $active_field) {
                                     if (!empty($active_field)) {
-                                        echo '<span class="field" id="' . $active_field . '" draggable="true" ondragstart="dragField(this, event)">' . ucwords(str_replace("_"," ",$active_field)) . '</span>';
+                                        if ($active_field == 'gravatar_hash') {
+                                            echo '<span class="field" id="' . $active_field . '" draggable="true" ondragstart="dragField(this, event)">Avatar</span>';
+                                        } else {
+                                            echo '<span class="field" id="' . $active_field . '" draggable="true" ondragstart="dragField(this, event)">' . ucwords(str_replace("_"," ",$active_field)) . '</span>';
+                                        }
                                     }
                                 }
                             }
@@ -82,7 +89,11 @@
                             if (!empty($query_inactive_fields)) {
                                 foreach ($query_inactive_fields as $inactive_field) {
                                     if (!empty($inactive_field)) {
-                                        echo '<span class="field" id="' . $inactive_field . '" draggable="true" ondragstart="dragField(this, event)">' . ucwords(str_replace("_"," ",$inactive_field)) . '</span>';
+                                        if ($inactive_field == 'gravatar_hash') {
+                                            echo '<span class="field" id="' . $inactive_field . '" draggable="true" ondragstart="dragField(this, event)">Avatar</span>';
+                                        } else {
+                                            echo '<span class="field" id="' . $inactive_field . '" draggable="true" ondragstart="dragField(this, event)">' . ucwords(str_replace("_"," ",$inactive_field)) . '</span>';
+                                        }
                                     }
                                 }
                             } 
@@ -91,10 +102,12 @@
                                 echo '<span id="name" class="field" draggable="true" ondragstart="dragField(this, event)">Name</span>';
                                 echo '<span id="title" class="field" draggable="true" ondragstart="dragField(this, event)">Title</span>';
                                 echo '<span id="location" class="field" draggable="true" ondragstart="dragField(this, event)">Location</span>';
+                                echo '<span id="website_link" class="field" draggable="true" ondragstart="dragField(this, event)">Website Link</span>';
                                 echo '<span id="bio" class="field" draggable="true" ondragstart="dragField(this, event)">Bio</span>';
                                 echo '<span id="views" class="field" draggable="true" ondragstart="dragField(this, event)">Views</span>';
                                 echo '<span id="rank" class="field" draggable="true" ondragstart="dragField(this, event)">Rank</span>';
-                                echo '<span id="badges" class="field" draggable="true" ondragstart="dragField(this, event)">Badges</span>';
+                                echo '<span id="gravatar_hash" class="field" draggable="true" ondragstart="dragField(this, event)">Avatar</span>';
+                                echo '<span id="badges_count" class="field" draggable="true" ondragstart="dragField(this, event)">Badges Count</span>';
                                 echo '<span id="follower_count" class="field" draggable="true" ondragstart="dragField(this, event)">Follower Count</span>';
                                 echo '<span id="following_count" class="field" draggable="true" ondragstart="dragField(this, event)">Following Count</span>';
                                 echo '<span id="top_skills" class="field" draggable="true" ondragstart="dragField(this, event)">Top Skills</span>';
@@ -123,15 +136,30 @@
                     foreach ($preview_fields as $preview_field) {
                         if (!empty($preview_field)) {
                             switch ($preview_field) {
-                                // The name output
+                                // Output name with link to coderbits profile page
                                 case 'name':
                                     echo '<div id="' . $preview_field . '" class="cp_output_field"><a href="http://coderbits/' . get_option('coderbits_profiler_username') . '" title="' . coderbits_profiler_data($preview_field) . '" target="_blank">' . coderbits_profiler_data($preview_field) . '</a></div>';
                                 break;
+                                // Output for title and bio are the same
                                 case 'title':
-                                    echo '<div id="' . $preview_field . '" class="cp_output_field">' . coderbits_profiler_data($preview_field) . '</span>';
+                                case 'bio':
+                                    echo '<div id="' . $preview_field . '" class="cp_output_field">' . coderbits_profiler_data($preview_field) . '</div>';
                                 break;
+                                // Output for location has link to Google Maps
                                 case 'location':
-                                    echo '<div id="' . $preview_field . '" class="cp_output_field"><a href="https://maps.google.com/maps?q=' . coderbits_profiler_data($preview_field) . '" title="' . coderbits_profiler_data($preview_field) . '" target="_blank">' . coderbits_profiler_data($preview_field) . '</span>';
+                                    echo '<div id="' . $preview_field . '" class="cp_output_field"><a href="https://maps.google.com/maps?q=' . coderbits_profiler_data($preview_field) . '" title="' . coderbits_profiler_data($preview_field) . '" target="_blank">' . coderbits_profiler_data($preview_field) . '</a></div>';
+                                break;
+                                // Output for website link
+                                case 'website_link':
+                                    echo '<div id="' . $preview_field . '" class="cp_output_field"><a href="' . coderbits_profiler_data($preview_field) . '" title="Website" target="_blank">' . coderbits_profiler_data($preview_field) . '</a></div>';
+                                break;
+                                // Output for views and rank are the same
+                                case 'views':
+                                case 'rank':
+                                    echo '<div id="' . $preview_field . '" class="cp_output_field">' . ucwords($preview_field) . ': ' .coderbits_profiler_data($preview_field) . '</div>';
+                                break;
+                                case 'gravatar_hash':
+                                    echo '<div id="' . $preview_field . '" class="cp_output_field"><a href="http://coderbits/' . get_option('coderbits_profiler_username') . '" title="' . coderbits_profiler_data($preview_field) . '" target="_blank"><img src="http://www.gravatar.com/avatar/' . coderbits_profiler_data($preview_field) . '" alt="' . get_option('coderbits_profiler_username') . '"></a></div>';
                                 break;
                             }
                         }

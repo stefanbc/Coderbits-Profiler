@@ -26,9 +26,9 @@ function dropField(target, event) {
 	    		rand: Math.random()
 	    	}, function(data){
 	    		if (data == 'Yes') {
-	    			$('.zone-title-fields').text('Fields updated!');
+	    			$('.zone-title-fields').text('Fields updated! <small><i>*Manage active/inactive fields</i></small>');
 					setTimeout(function(){
-						$('.zone-title-fields').text('Fields');    
+						$('.zone-title-fields').text('Fields <small><i>*Manage active/inactive fields</i></small>');    
 					}, 2500);
 	    		}
 	    	});

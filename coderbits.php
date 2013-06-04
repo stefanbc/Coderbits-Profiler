@@ -56,7 +56,7 @@
                 echo '<h2 class="zone-title-profile">Profile <small><i>*Update profile options</i></small></h2>';
                 echo '<form method="post" id="profile_form">';
                     echo '<div class="row">Current active Coderbits profile: <b>' . get_option('coderbits_profiler_username') . '</b></div>';
-                    echo '<div class="row">Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_coderbits_profiler" value="Set Profile"></div>';
+                    echo '<div class="row">Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_profile_coderbits_profiler" id="update_profile_coderbits_profiler" value="Set Profile"></div>';
                 echo '</form>';
 
                 // The fields part
@@ -123,7 +123,7 @@
                         echo '</div>';
                     echo '</div>';
                     echo '</div>';
-                echo '<input type="submit" name="update_coderbits_profiler" value="Save Fields">';
+                echo '<div id="fields_submit_button"><input type="submit" name="update_fields_coderbits_profiler" id="update_fields_coderbits_profiler" value="Save Fields"></div>';
                 echo '</form>';
             echo '</div>';
 

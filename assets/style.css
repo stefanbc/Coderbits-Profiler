@@ -75,3 +75,8 @@ input[type='checkbox'] {
 	cursor: move;
 	color: #fff;
 }
+.update {
+	font-style: italic;
+	color: #14B81F;
+	padding-left: 5px;
+}

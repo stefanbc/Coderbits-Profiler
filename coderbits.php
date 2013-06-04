@@ -207,7 +207,8 @@
         // Get the active fields
         $preview_fields = unserialize(get_option('coderbits_profiler_active_fields'));
         if (!empty($preview_fields)) {
-            echo '<div class="cp_output_wraper">';
+            echo '<link href="' . plugins_url( 'assets/output_styling.css' , __FILE__ ) . '" rel="stylesheet" type="text/css">';
+            echo '<div class="cp_output_wrapper">';
             foreach ($preview_fields as $preview_field) {
                 if (!empty($preview_field)) {
                     switch ($preview_field) {

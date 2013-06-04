@@ -50,7 +50,7 @@
             // The left part
             echo '<div class="sides">';
                 // The profile part
-                echo '<h2 class="zone-title-profile">Profile <small><i>*Update profile options here</i></small></h2>';
+                echo '<h2 class="zone-title-profile">Profile <small><i>*Update profile options</i></small></h2>';
                 echo '<form method="post" id="profile_form">';
                     echo '<div class="row">Current active Coderbits profile: <b>' . get_option('coderbits_profiler_username') . '</b></div>';
                     echo '<div class="row">Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_coderbits_profiler" value="Set Profile"></div>';
@@ -86,7 +86,7 @@
                                     }
                                 }
                             } 
-                            // If there are no fields set show the default ones
+                            // If there are no fields set, show the default ones
                             else {
                                 echo '<span class="field" draggable="true" id="name" ondragstart="dragField(this, event)">Name</span>';
                                 echo '<span class="field" draggable="true" id="title" ondragstart="dragField(this, event)">Title</span>';

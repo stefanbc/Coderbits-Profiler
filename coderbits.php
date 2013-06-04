@@ -113,6 +113,7 @@
                 echo '<input type="submit" name="update_coderbits_profiler" value="Save Fields">';
                 echo '</form>';
             echo '</div>';
+
             // The right part
             echo '<div class="sides">';
                 echo '<h2 class="zone-title-preview">Preview Widget <small><i>*Preview widget based on your settings</i></small></h2>';
@@ -122,8 +123,15 @@
                     foreach ($preview_fields as $preview_field) {
                         if (!empty($preview_field)) {
                             switch ($preview_field) {
+                                // The name output
                                 case 'name':
-                                    echo '<div id="' . $preview_field . '" class="cp_output_field">' . ucwords(str_replace("_"," ",$preview_field)) . '</span>';
+                                    echo '<div id="' . $preview_field . '" class="cp_output_field"><a href="http://coderbits/' . get_option('coderbits_profiler_username') . '" title="' . coderbits_profiler_data($preview_field) . '" target="_blank">' . coderbits_profiler_data($preview_field) . '</a></div>';
+                                break;
+                                case 'title':
+                                    echo '<div id="' . $preview_field . '" class="cp_output_field">' . coderbits_profiler_data($preview_field) . '</span>';
+                                break;
+                                case 'location':
+                                    echo '<div id="' . $preview_field . '" class="cp_output_field"><a href="https://maps.google.com/maps?q=' . coderbits_profiler_data($preview_field) . '" title="' . coderbits_profiler_data($preview_field) . '" target="_blank">' . coderbits_profiler_data($preview_field) . '</span>';
                                 break;
                             }
                         }

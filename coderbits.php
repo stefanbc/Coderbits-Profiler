@@ -168,10 +168,16 @@
         // Check if the field is array
         if (is_array($return)) {
             foreach ($return as $items) {
+                // Limit counter
+                $count = 0;
                 foreach($items as $key => $item){
+                    // Load only 14 entries
+                    if ($count == 14) break;
+
                     // Check if the key from the loop is the chosen type
                     if ($key == $subtype) {
-                        $data .= $item . ', '; 
+                        $data .= $item . ', ';
+                        $count++;
                     }
                 }  
             }
@@ -225,13 +231,28 @@
                         // Output follower and following count are the same
                         case 'follower_count':
                         case 'following_count':
-                            echo '<div id="' . $preview_field . '" class="cp_output_field">' . ucwords(substr($preview_field, 0, -6)) . ': ' . $badges_count . '</div>';
+                            $text = ($preview_field == "follower_count") ? "Followers" : "Friends";
+                            echo '<div id="' . $preview_field . '" class="cp_output_field">' . $text . ': ' . coderbits_profiler_data($preview_field) . '</div>';
+                        break;
+                        // Output top things are the same
+                        case 'top_skills':
+                        case 'top_languages':
+                        case 'top_environments':
+                        case 'top_frameworks':
+                        case 'top_tools':
+                        case 'top_interests':
+                        case 'top_traits':
+                        case 'top_areas':
+                            echo '<div id="' . $preview_field . '" class="cp_output_field">' . ucwords(str_replace("_"," ", $preview_field)) . ': ' . coderbits_profiler_data($preview_field, 'name') . '</div>';
+                        break;
+                        case 'badges':
+                            echo '<div id="' . $preview_field . '" class="cp_output_field">' . coderbits_profiler_data($preview_field, 'name') . '</div>';
                         break;
                     }
                 }
             }
         } else {
-            echo '<div class="row">Nothing to see here, yet!</div>';
+            echo '<div class="row">No data to display, yet!</div>';
         }
     }
     

@@ -73,8 +73,10 @@ input[type='checkbox'] {
 	color: #a6a6a6;
 	width: 20px;
 	position: absolute;
-	top: 50%;
+	top: 32%;
 	left: 47.3%;
+	word-break: break-word;
+	line-height: 30px;
 }
 .field {
 	text-align: center;

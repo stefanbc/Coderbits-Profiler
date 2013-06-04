@@ -33,6 +33,7 @@
         add_option('coderbits_profiler_username', $username);
         add_option('coderbits_profiler_active_fields', $active_fields);
         add_option('coderbits_profiler_inactive_fields', $inactive_fields);
+        add_option('coderbits_profiler_options', $options);
 
         // Get the username
         $username = $wpdb->escape($_POST['username']);
@@ -53,14 +54,14 @@
             // The left part
             echo '<div class="sides">';
                 // The profile part
-                echo '<h2 class="zone-title-profile">Profile <small><i>*Update profile options</i></small></h2>';
+                echo '<h2 class="zone-title-profile">Profile <small><i>Update profile options</i></small></h2>';
                 echo '<form method="post" id="profile_form">';
                     echo '<div class="row">Current active Coderbits profile: <b>' . get_option('coderbits_profiler_username') . '</b></div>';
                     echo '<div class="row">Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_profile_coderbits_profiler" id="update_profile_coderbits_profiler" value="Set Profile"></div>';
                 echo '</form>';
 
                 // The fields part
-                echo '<h2 class="zone-title-fields">Fields <small><i>*Manage active/inactive fields</i></small></h2>';
+                echo '<h2 class="zone-title-fields">Fields <small><i>Manage active/inactive fields</i></small></h2>';
                 echo '<form method="post" id="fields_form">';
                     echo '<div class="fields_wrapper">';
                     echo '<div class="smaller-side">';
@@ -81,7 +82,7 @@
                             }
                         echo '</div>';
                     echo '</div>';
-                    echo '<div class="arrows">&lt;<br>&gt;</div>';
+                    echo '<div class="arrows">&lt;&gt;</div>';
                     echo '<div class="smaller-side">';
                         echo '<h3>Inactive</h3>';
                         echo '<div class="inactive-fields zone" ondrop="dropField(this, event)" ondragenter="return false" ondragover="return false">';
@@ -130,7 +131,12 @@
 
             // The right part
             echo '<div class="sides">';
-                echo '<h2 class="zone-title-preview">Preview Widget <small><i>*Preview widget based on your settings</i></small></h2>';
+                echo '<h2 class="zone-title-preview">Options <small><i>Change widget settings</i></small></h2>';
+                echo '<form method="post" id="options_form">';
+                echo '<input type="checkbox" name="plugin_styling" id="plugin_styling"/> Use plugin styling?';
+                echo '<div id="options_submit_button"><input type="submit" name="update_options_coderbits_profiler" id="update_options_coderbits_profiler" value="Update Options"></div>';
+                echo '</form>';
+                echo '<h2 class="zone-title-preview">Preview Widget <small><i>Preview widget based on your settings</i></small></h2>';
                 coderbits_profiler_output_data();
             echo '</div>';
         echo '</div>';
@@ -266,11 +272,9 @@
     		parent::__construct(false, 'Coderbits Profiler');
     	}
         
-        // Output to frontend by the widget
+        // Output to frontend widget
     	function widget($args, $instance) {
             coderbits_profiler_output_data();
-            echo 'Top Skills';
-            echo '<div class="coderbits-field" id="coderbits-title">' . coderbits_profiler_data('top_skills','name') . '</div>';
     	}
     }
     

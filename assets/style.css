@@ -53,19 +53,28 @@ input[type='checkbox'] {
 }
 .zone {
 	border: 1px dashed #ccc;
-	min-height: 250px;
+	min-height: 415px;
 }
 .row {
 	padding: 10px 0;
 }
 .fields_wrapper {
 	overflow: hidden;
+	position: relative;
 }
 .inactive-fields .field {
 	background: #aaa;
 }
 .active-fields .field {
 	background: #2C9EE6;
+}
+.arrows {
+	font-size: 40px;
+	color: #a6a6a6;
+	width: 20px;
+	position: absolute;
+	top: 50%;
+	left: 47.3%;
 }
 .field {
 	text-align: center;

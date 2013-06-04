@@ -81,6 +81,7 @@
                             }
                         echo '</div>';
                     echo '</div>';
+                    echo '<div class="arrows">&lt;<br>&gt;</div>';
                     echo '<div class="smaller-side">';
                         echo '<h3>Inactive</h3>';
                         echo '<div class="inactive-fields zone" ondrop="dropField(this, event)" ondragenter="return false" ondragover="return false">';
@@ -167,20 +168,21 @@
 
         // Check if the field is array
         if (is_array($return)) {
+            // Limit counter
+            $count = 0;
+
             foreach ($return as $items) {
-                // Limit counter
-                $count = 0;
                 foreach($items as $key => $item){
                     // Load only 14 entries
-                    if ($count == 14) break;
+                    if (++$count > 14) break;
 
                     // Check if the key from the loop is the chosen type
                     if ($key == $subtype) {
                         $data .= $item . ', ';
-                        $count++;
                     }
                 }  
             }
+
         } else {
             $data = $return;
         }

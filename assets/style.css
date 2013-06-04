@@ -35,6 +35,10 @@ input[type='checkbox'] {
 	vertical-align: middle;
 	margin-bottom: 5px;
 }
+.submit_button {
+	padding: 15px 0;
+	text-align: center;
+}
 .sides {
 	float: left;
 	overflow: hidden;

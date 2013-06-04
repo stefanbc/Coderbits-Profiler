@@ -68,9 +68,25 @@ input[type='checkbox'] {
 }
 .inactive-fields .field {
 	background: #aaa;
+	-webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.inactive-fields .field:hover, .inactive-fields .field:focus {
+	background: #ccc;
 }
 .active-fields .field {
 	background: #2C9EE6;
+	-webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.active-fields .field:hover, .active-fields .field:focus {
+	background: #30AFFF;
 }
 .arrows {
 	font-size: 40px;

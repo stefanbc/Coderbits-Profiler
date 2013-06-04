@@ -68,7 +68,7 @@
                             if (!empty($query_active_fields)) {
                                 foreach ($query_active_fields as $active_field) {
                                     if (!empty($active_field)) {
-                                        echo '<span class="field" id="' . $active_field . '" draggable="true" ondragstart="dragField(this, event)">' . ucfirst($active_field) . '</span>';
+                                        echo '<span class="field" id="' . $active_field . '" draggable="true" ondragstart="dragField(this, event)">' . ucwords(str_replace("_"," ",$active_field)) . '</span>';
                                     }
                                 }
                             }
@@ -82,30 +82,30 @@
                             if (!empty($query_inactive_fields)) {
                                 foreach ($query_inactive_fields as $inactive_field) {
                                     if (!empty($inactive_field)) {
-                                        echo '<span class="field" id="' . $inactive_field . '" draggable="true" ondragstart="dragField(this, event)">' . ucfirst($inactive_field) . '</span>';
+                                        echo '<span class="field" id="' . $inactive_field . '" draggable="true" ondragstart="dragField(this, event)">' . ucwords(str_replace("_"," ",$inactive_field)) . '</span>';
                                     }
                                 }
                             } 
                             // If there are no fields set, show the default ones
                             else {
-                                echo '<span class="field" draggable="true" id="name" ondragstart="dragField(this, event)">Name</span>';
-                                echo '<span class="field" draggable="true" id="title" ondragstart="dragField(this, event)">Title</span>';
-                                echo '<span class="field" draggable="true" id="location" ondragstart="dragField(this, event)">Location</span>';
-                                echo '<span class="field" draggable="true" id="bio" ondragstart="dragField(this, event)">Bio</span>';
-                                echo '<span class="field" draggable="true" id="views" ondragstart="dragField(this, event)">Views</span>';
-                                echo '<span class="field" draggable="true" id="rank" ondragstart="dragField(this, event)">Rank</span>';
-                                echo '<span class="field" draggable="true" id="badges" ondragstart="dragField(this, event)">Badges</span>';
-                                echo '<span class="field" draggable="true" id="followers" ondragstart="dragField(this, event)">Followers</span>';
-                                echo '<span class="field" draggable="true" id="following" ondragstart="dragField(this, event)">Following</span>';
-                                echo '<span class="field" draggable="true" id="skills" ondragstart="dragField(this, event)">Skills</span>';
-                                echo '<span class="field" draggable="true" id="languages" ondragstart="dragField(this, event)">Languages</span>';
-                                echo '<span class="field" draggable="true" id="environments" ondragstart="dragField(this, event)">Environments</span>';
-                                echo '<span class="field" draggable="true" id="frameworks" ondragstart="dragField(this, event)">Frameworks</span>';
-                                echo '<span class="field" draggable="true" id="tools" ondragstart="dragField(this, event)">Tools</span>';
-                                echo '<span class="field" draggable="true" id="interests" ondragstart="dragField(this, event)">Interests</span>';
-                                echo '<span class="field" draggable="true" id="traits" ondragstart="dragField(this, event)">Traits</span>';
-                                echo '<span class="field" draggable="true" id="areas" ondragstart="dragField(this, event)">Areas</span>';
-                                echo '<span class="field" draggable="true" id="badges" ondragstart="dragField(this, event)">Badges</span>';
+                                echo '<span id="name" class="field" draggable="true" ondragstart="dragField(this, event)">Name</span>';
+                                echo '<span id="title" class="field" draggable="true" ondragstart="dragField(this, event)">Title</span>';
+                                echo '<span id="location" class="field" draggable="true" ondragstart="dragField(this, event)">Location</span>';
+                                echo '<span id="bio" class="field" draggable="true" ondragstart="dragField(this, event)">Bio</span>';
+                                echo '<span id="views" class="field" draggable="true" ondragstart="dragField(this, event)">Views</span>';
+                                echo '<span id="rank" class="field" draggable="true" ondragstart="dragField(this, event)">Rank</span>';
+                                echo '<span id="badges" class="field" draggable="true" ondragstart="dragField(this, event)">Badges</span>';
+                                echo '<span id="follower_count" class="field" draggable="true" ondragstart="dragField(this, event)">Follower Count</span>';
+                                echo '<span id="following_count" class="field" draggable="true" ondragstart="dragField(this, event)">Following Count</span>';
+                                echo '<span id="top_skills" class="field" draggable="true" ondragstart="dragField(this, event)">Top Skills</span>';
+                                echo '<span id="top_languages" class="field" draggable="true" ondragstart="dragField(this, event)">Top Languages</span>';
+                                echo '<span id="top_environments" class="field" draggable="true" ondragstart="dragField(this, event)">Top Environments</span>';
+                                echo '<span id="top_frameworks" class="field" draggable="true" ondragstart="dragField(this, event)">Top Frameworks</span>';
+                                echo '<span id="top_tools" class="field" draggable="true" ondragstart="dragField(this, event)">Top Tools</span>';
+                                echo '<span id="top_interests" class="field" draggable="true" ondragstart="dragField(this, event)">Top Interests</span>';
+                                echo '<span id="top_traits" class="field" draggable="true" ondragstart="dragField(this, event)">Top Traits</span>';
+                                echo '<span id="top_areas" class="field" draggable="true" ondragstart="dragField(this, event)">Top Areas</span>';
+                                echo '<span id="badges" class="field" draggable="true" ondragstart="dragField(this, event)">Badges</span>';
                             }
                         echo '</div>';
                     echo '</div>';
@@ -116,12 +116,21 @@
             // The right part
             echo '<div class="sides">';
                 echo '<h2 class="zone-title-preview">Preview Widget <small><i>*Preview widget based on your settings</i></small></h2>';
-                // $fields = unserialize(get_option('coderbits_profiler_active_fields'));
-                // if (!empty($fields)) {
-                //     print_r($fields);
-                // } else {
+                // Get the active fields
+                $preview_fields = unserialize(get_option('coderbits_profiler_active_fields'));
+                if (!empty($preview_fields)) {
+                    foreach ($preview_fields as $preview_field) {
+                        if (!empty($preview_field)) {
+                            switch ($preview_field) {
+                                case 'name':
+                                    echo '<div id="' . $preview_field . '" class="cp_output_field">' . ucwords(str_replace("_"," ",$preview_field)) . '</span>';
+                                break;
+                            }
+                        }
+                    }
+                } else {
                     echo '<div class="row">Nothing to see here, yet!</div>';
-                //}
+                }
             echo '</div>';
         echo '</div>';
     }

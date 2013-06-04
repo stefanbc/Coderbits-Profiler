@@ -130,43 +130,7 @@
             // The right part
             echo '<div class="sides">';
                 echo '<h2 class="zone-title-preview">Preview Widget <small><i>*Preview widget based on your settings</i></small></h2>';
-                // Get the active fields
-                $preview_fields = unserialize(get_option('coderbits_profiler_active_fields'));
-                if (!empty($preview_fields)) {
-                    foreach ($preview_fields as $preview_field) {
-                        if (!empty($preview_field)) {
-                            switch ($preview_field) {
-                                // Output name with link to coderbits profile page
-                                case 'name':
-                                    echo '<div id="' . $preview_field . '" class="cp_output_field"><a href="http://coderbits/' . get_option('coderbits_profiler_username') . '" title="' . coderbits_profiler_data($preview_field) . '" target="_blank">' . coderbits_profiler_data($preview_field) . '</a></div>';
-                                break;
-                                // Output for title and bio are the same
-                                case 'title':
-                                case 'bio':
-                                    echo '<div id="' . $preview_field . '" class="cp_output_field">' . coderbits_profiler_data($preview_field) . '</div>';
-                                break;
-                                // Output for location has link to Google Maps
-                                case 'location':
-                                    echo '<div id="' . $preview_field . '" class="cp_output_field"><a href="https://maps.google.com/maps?q=' . coderbits_profiler_data($preview_field) . '" title="' . coderbits_profiler_data($preview_field) . '" target="_blank">' . coderbits_profiler_data($preview_field) . '</a></div>';
-                                break;
-                                // Output for website link
-                                case 'website_link':
-                                    echo '<div id="' . $preview_field . '" class="cp_output_field"><a href="' . coderbits_profiler_data($preview_field) . '" title="Website" target="_blank">' . coderbits_profiler_data($preview_field) . '</a></div>';
-                                break;
-                                // Output for views and rank are the same
-                                case 'views':
-                                case 'rank':
-                                    echo '<div id="' . $preview_field . '" class="cp_output_field">' . ucwords($preview_field) . ': ' .coderbits_profiler_data($preview_field) . '</div>';
-                                break;
-                                case 'gravatar_hash':
-                                    echo '<div id="' . $preview_field . '" class="cp_output_field"><a href="http://coderbits/' . get_option('coderbits_profiler_username') . '" title="' . coderbits_profiler_data($preview_field) . '" target="_blank"><img src="http://www.gravatar.com/avatar/' . coderbits_profiler_data($preview_field) . '" alt="' . get_option('coderbits_profiler_username') . '"></a></div>';
-                                break;
-                            }
-                        }
-                    }
-                } else {
-                    echo '<div class="row">Nothing to see here, yet!</div>';
-                }
+                coderbits_profiler_output_data();
             echo '</div>';
         echo '</div>';
     }
@@ -201,7 +165,7 @@
         // Output the requested field
         $return = $output[$type];
 
-        // Check if the field has details
+        // Check if the field is array
         if (is_array($return)) {
             foreach ($return as $items) {
                 foreach($items as $key => $item){
@@ -217,6 +181,59 @@
         
         return $data;
     }
+
+    // Output function used by preview and widget
+    function coderbits_profiler_output_data(){
+        // Get the active fields
+        $preview_fields = unserialize(get_option('coderbits_profiler_active_fields'));
+        if (!empty($preview_fields)) {
+            foreach ($preview_fields as $preview_field) {
+                if (!empty($preview_field)) {
+                    switch ($preview_field) {
+                        // Output name with link to coderbits profile page
+                        case 'name':
+                            echo '<div id="' . $preview_field . '" class="cp_output_field"><a href="https://coderbits.com/' . get_option('coderbits_profiler_username') . '" title="' . coderbits_profiler_data($preview_field) . '" target="_blank">' . coderbits_profiler_data($preview_field) . '</a></div>';
+                        break;
+                        // Output for title and bio are the same
+                        case 'title':
+                        case 'bio':
+                            echo '<div id="' . $preview_field . '" class="cp_output_field">' . coderbits_profiler_data($preview_field) . '</div>';
+                        break;
+                        // Output for location has link to Google Maps
+                        case 'location':
+                            echo '<div id="' . $preview_field . '" class="cp_output_field"><a href="https://maps.google.com/maps?q=' . coderbits_profiler_data($preview_field) . '" title="' . coderbits_profiler_data($preview_field) . '" target="_blank">' . coderbits_profiler_data($preview_field) . '</a></div>';
+                        break;
+                        // Output for website link
+                        case 'website_link':
+                            echo '<div id="' . $preview_field . '" class="cp_output_field"><a href="' . coderbits_profiler_data($preview_field) . '" title="Website" target="_blank">' . coderbits_profiler_data($preview_field) . '</a></div>';
+                        break;
+                        // Output for views and rank are the same
+                        case 'views':
+                        case 'rank':
+                            echo '<div id="' . $preview_field . '" class="cp_output_field">' . ucwords($preview_field) . ': ' .coderbits_profiler_data($preview_field) . '</div>';
+                        break;
+                        // Output the avatar
+                        case 'gravatar_hash':
+                            echo '<div id="' . $preview_field . '" class="cp_output_field"><a href="https://coderbits.com/' . get_option('coderbits_profiler_username') . '" title="' . get_option('coderbits_profiler_username') . '" target="_blank"><img src="http://www.gravatar.com/avatar/' . coderbits_profiler_data($preview_field) . '" alt="' . get_option('coderbits_profiler_username') . '"></a></div>';
+                        break;
+                        // Output the badges count
+                        case 'badges_count':
+                            $badges_count = coderbits_profiler_data('one_bit_badges') + coderbits_profiler_data('eight_bit_badges') + coderbits_profiler_data('sixteen_bit_badges') + coderbits_profiler_data('thirty_two_bit_badges') + coderbits_profiler_data('sixty_four_bit_badges');
+
+                            echo '<div id="' . $preview_field . '" class="cp_output_field">' . ucwords(substr($preview_field, 0, -6)) . ': ' . $badges_count . '</div>';
+                        break;
+                        // Output follower and following count are the same
+                        case 'follower_count':
+                        case 'following_count':
+                            echo '<div id="' . $preview_field . '" class="cp_output_field">' . ucwords(substr($preview_field, 0, -6)) . ': ' . $badges_count . '</div>';
+                        break;
+                    }
+                }
+            }
+        } else {
+            echo '<div class="row">Nothing to see here, yet!</div>';
+        }
+    }
     
     // We now create the widget and register it with WP
     class CoderbitsProfilerWidget extends WP_Widget {
@@ -228,21 +245,13 @@
         
         // Output to frontend by the widget
     	function widget($args, $instance) {
-            echo '<div class="coderbits-field" id="coderbits-avatar"><img src="http://www.gravatar.com/avatar/' . coderbits_profiler_data('gravatar_hash') . '" alt="avatar"></div>';
-            echo '<div class="coderbits-field" id="coderbits-name">' . coderbits_profiler_data('name')  . '</div>';
-            echo '<div class="coderbits-field" id="coderbits-title">' . coderbits_profiler_data('title') . '</div>';
+            coderbits_profiler_output_data();
             echo 'Top Skills';
             echo '<div class="coderbits-field" id="coderbits-title">' . coderbits_profiler_data('top_skills','name') . '</div>';
-
-            $badges = coderbits_profiler_data('one_bit_badges') + coderbits_profiler_data('eight_bit_badges') + coderbits_profiler_data('sixteen_bit_badges') + coderbits_profiler_data('thirty_two_bit_badges') + coderbits_profiler_data('sixty_four_bit_badges');
-            echo '<div class="coderbits-field" id="coderbits-title">Badges ' . $badges . '</div>';
-
-            echo '<div class="coderbits-field" id="coderbits-title">Views ' . coderbits_profiler_data('views') . '</div>';
-            echo '<div class="coderbits-field" id="coderbits-title">Followers ' . coderbits_profiler_data('follower_count') . '</div>';
-            echo '<div class="coderbits-field" id="coderbits-title">Friends ' . coderbits_profiler_data('following_count') . '</div>';
     	}
     }
     
+    // Register the widget
     function coderbits_profiler_register_widgets() {
     	register_widget('CoderbitsProfilerWidget');
     }

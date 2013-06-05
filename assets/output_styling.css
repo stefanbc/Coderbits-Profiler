@@ -3,9 +3,76 @@
 	margin: 15px auto;
 	color: #000;
 	padding: 20px;
+	background: #fff;
 	border: 1px solid #ccc;
 	border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
 	-webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
 	-moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
 	box-shadow: 1px 1px 2px 0 #d0d0d0;
+	overflow: hidden;
+}
+.field_text {
+	color: #aaa;
+}
+.gravatar_hash {
+	float: left;
+	padding-right: 15px;
+}
+.name {
+	float: left;
+}
+.title {
+	float: left;
+	display: block;
+	width: 50%;
+	padding: 10px 0;
+	font-style: italic;
+	font-size: 0.8em;
+}
+.badges_count {
+	width: 55%;
+	overflow: hidden;
+	float: left;
+	padding: 10px 0;
+}
+.views {
+	width: 45%;
+	overflow: hidden;
+	float: left;
+	padding: 10px 0;
+}
+.follower_count {
+	float: left;
+	overflow: hidden;
+	width: 55%;
+	padding: 5px 0;
+}
+.following_count {
+	float: left;
+	overflow: hidden;
+	width: 45%;
+	padding: 5px 0;
+}
+.top_skills,
+.top_languages,
+.top_environments,
+.top_frameworks,
+.top_tools,
+.top_interests,
+.top_traits,
+.top_areas {
+	overflow: hidden;
+	width: 100%;
+	padding: 5px 0;
+}
+.top_skills .field_text,
+.top_languages .field_text,
+.top_environments .field_text,
+.top_frameworks .field_text,
+.top_tools .field_text,
+.top_interests .field_text,
+.top_traits .field_text,
+.top_areas .field_text  {
+	display: block;
+	padding-bottom: 5px;
 }

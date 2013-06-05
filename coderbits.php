@@ -139,7 +139,7 @@
             echo '<div class="sides">';
                 echo '<h2 class="zone-title-preview">Options <small><i>Change widget settings</i></small></h2>';
                 echo '<form method="post" id="options_form">';
-                    echo '<input type="checkbox" name="coderbits_profiler_options" id="coderbits_profiler_options" value="1" ' . checked('1', get_option('coderbits_profiler_options')) . ' /> Use plugin styling?';
+                    echo '<input type="checkbox" name="coderbits_profiler_options" id="coderbits_profiler_options" value="1" ' . checked(true, get_option('coderbits_profiler_options'), false) . ' /> Use plugin styling?';
                     echo '<div id="options_submit_button" class="submit_button"><input type="submit" name="update_options_coderbits_profiler" id="update_options_coderbits_profiler" value="Update Options"></div>';
                 echo '</form>';
                 echo '<h2 class="zone-title-preview">Preview Widget <small><i>Preview widget based on your settings</i></small></h2>';

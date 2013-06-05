@@ -60,7 +60,11 @@
 .top_tools,
 .top_interests,
 .top_traits,
-.top_areas {
+.top_areas,
+.location,
+.website_link,
+.bio,
+.rank {
 	overflow: hidden;
 	width: 100%;
 	padding: 5px 0;

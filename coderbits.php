@@ -13,7 +13,7 @@
 
     // create submenu page in the WordPress Settings menu
 	function coderbits_profiler() {
-        add_submenu_page('options-general.php', 'Coderbits Profiler', 'Coderbits Profiler', 'edit_pages', 'coderbits_profiler', 'coderbits_profiler_options');
+        add_submenu_page('options-general.php', 'Coderbits Profiler', 'Coderbits Profiler', 'edit_posts', 'coderbits_profiler', 'coderbits_profiler_options');
 	}
     
     // Add settings link to plugins list

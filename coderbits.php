@@ -232,7 +232,7 @@
                         // Output for views and rank are the same
                         case 'views':
                         case 'rank':
-                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field"><span class="field_text">' . ucwords($preview_field) . ':</span> ' .coderbits_profiler_data($preview_field) . '</div>';
+                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field"><span class="field_text">' . ucwords($preview_field) . '</span> ' .coderbits_profiler_data($preview_field) . '</div>';
                         break;
                         // Output the avatar
                         case 'gravatar_hash':
@@ -242,13 +242,13 @@
                         case 'badges_count':
                             $badges_count = coderbits_profiler_data('one_bit_badges') + coderbits_profiler_data('eight_bit_badges') + coderbits_profiler_data('sixteen_bit_badges') + coderbits_profiler_data('thirty_two_bit_badges') + coderbits_profiler_data('sixty_four_bit_badges');
 
-                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field"><span class="field_text">' . ucwords(substr($preview_field, 0, -6)) . ':</span> ' . $badges_count . '</div>';
+                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field"><span class="field_text">' . ucwords(substr($preview_field, 0, -6)) . '</span> ' . $badges_count . '</div>';
                         break;
                         // Output follower and following count are the same
                         case 'follower_count':
                         case 'following_count':
                             $text = ($preview_field == "follower_count") ? "Followers" : "Friends";
-                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field"><span class="field_text">' . $text . ':</span> ' . coderbits_profiler_data($preview_field) . '</div>';
+                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field"><span class="field_text">' . $text . '</span> ' . coderbits_profiler_data($preview_field) . '</div>';
                         break;
                         // Output top things are the same
                         case 'top_skills':
@@ -259,7 +259,7 @@
                         case 'top_interests':
                         case 'top_traits':
                         case 'top_areas':
-                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field"><span class="field_text">' . ucwords(str_replace("_"," ", $preview_field)) . ':</span> ' . coderbits_profiler_data($preview_field, 'name') . '</div>';
+                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field"><span class="field_text">' . ucwords(str_replace("_"," ", $preview_field)) . '</span>' . coderbits_profiler_data($preview_field, 'name') . '</div>';
                         break;
                         case 'badges':
                             echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field">' . coderbits_profiler_data($preview_field, 'name') . '</div>';

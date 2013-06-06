@@ -59,7 +59,7 @@
             // Getting results
             $result = curl_exec($ch); // Getting jSON result string
             
-            // Save the result to the prexisting JSON file
+            // Save the result into a local file
             $save_file = file_put_contents("details.json", $result);
 
             // Close request to clear up some resources
@@ -165,11 +165,11 @@
     
     // Get data from JSON file
     function coderbits_profiler_data($type, $subtype = '') {
+
+        // Read the local file for data
+        $json_file = file_get_contents('details.json');
         
-        // Get jSON file contest
-        $json_file = file_get_contents(dirname(__FILE__) . '/details.json');
-        
-        // Parse the JSON file
+        // Parse the JSON result
         $output = json_decode($json_file, true);
         
         // Output the requested field
@@ -179,7 +179,6 @@
         if (is_array($return)) {
             // Limit counter
             $count = 0;
-
             foreach ($return as $items) {
                 foreach($items as $key => $item){
                     // Load only 14 entries

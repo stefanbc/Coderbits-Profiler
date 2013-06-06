@@ -39,7 +39,34 @@
         
         // Updated the username setting with the current set username
         if($username) {
+            
+            // We call for the JSON file only on username change
+            // jSON URL which should be requested
+            $json_url = 'https://coderbits.com/' . $username . '.json';
+             
+            // Initializing curl
+            $ch = curl_init($json_url);
+             
+            // Configuring curl options
+            $options = array(
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => array('Content-type: application/json')
+            );
+             
+            // Setting curl options
+            curl_setopt_array($ch, $options);
+             
+            // Getting results
+            $result = curl_exec($ch); // Getting jSON result string
+            
+            // Save the result to the prexisting JSON file
+            $save_file = file_put_contents("details.json", $result);
+
+            // Close request to clear up some resources
+            curl_close($ch);          
+            
             update_option('coderbits_profiler_username', $username);
+            
         }
 
         // Styling and scripting
@@ -139,29 +166,11 @@
     // Get data from JSON file
     function coderbits_profiler_data($type, $subtype = '') {
         
-        // jSON URL which should be requested
-        $json_url = 'https://coderbits.com/' . get_option('coderbits_profiler_username') . '.json';
-         
-        // Initializing curl
-        $ch = curl_init($json_url);
-         
-        // Configuring curl options
-        $options = array(
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_HTTPHEADER => array('Content-type: application/json')
-        );
-         
-        // Setting curl options
-        curl_setopt_array($ch, $options);
-         
-        // Getting results
-        $result = curl_exec($ch); // Getting jSON result string
-
-        // Close request to clear up some resources
-        curl_close($ch);
-
+        // Get jSON file contest
+        $json_file = file_get_contents(dirname(__FILE__) . '/details.json');
+        
         // Parse the JSON file
-        $output = json_decode($result, true);
+        $output = json_decode($json_file, true);
         
         // Output the requested field
         $return = $output[$type];

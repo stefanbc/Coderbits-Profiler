@@ -8,9 +8,6 @@
         Author URI: http://coderbits.com/stefanbc
         License: MIT
     */
-    
-    //error_reporting(-1);
-    //ini_set('display_errors', true);
 
     add_action('admin_menu','coderbits_profiler');
 

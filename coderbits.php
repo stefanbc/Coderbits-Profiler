@@ -25,6 +25,17 @@
     $plugin = plugin_basename( __FILE__ );
     add_filter("plugin_action_links_$plugin", 'coderbits_add_settings_link');
 
+
+    // Check if the cache folder is writable
+    function cache_folder_notice() {
+        if (!is_writable(dirname(__FILE__) . '/cache/')) {
+            echo '<div class="error">';
+            echo '<p>The Coderbits Profiler cache folder is not writable! Please chmod(777) the cache folder.</p>';
+            echo '</div>';
+        }
+    }
+    add_action('admin_notices', 'cache_folder_notice');
+
     // Plugin options
     function coderbits_profiler_options(){
         global $wpdb;

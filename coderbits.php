@@ -30,7 +30,7 @@
     function cache_folder_notice() {
         if (!is_writable(dirname(__FILE__) . '/cache/')) {
             echo '<div class="error">';
-            echo '<p>The Coderbits Profiler cache folder is not writable! Please chmod(777) the cache folder.</p>';
+                echo '<p>The Coderbits Profiler cache folder is not writable! Please chmod(777) the cache folder.</p>';
             echo '</div>';
         }
     }
@@ -192,25 +192,35 @@
 
             // Check if the field is array
             if (is_array($return)) {
-                // Limit counter
-                $count = 0;
+                // Get all the items in the array
                 foreach ($return as $items) {
-                    foreach($items as $key => $item){
-                        // Load only 14 entries
-                        if (++$count > 14) break;
-
-                        // Check if the key from the loop is the chosen type
-                        if ($key == $subtype) {
-                            $data .= $item . ', ';
+                    // If the type is badge do other stuff
+                    if ($type == 'badges') {
+                        foreach($items as $key => $badge) {
+                            // Convert key => value arrays into variables
+                            $$key = $badge;
+                            // Check if the badge is in ok
+                            if ($earned == true && !empty($earned_date)) {
+                                $output_badge = '<a href="' . $link . '" title="' . $name . ' - ' . $description . '" target="_blank"><img src="' . $image_link . '" class="badge" alt="badge">';
+                            }
+                        }
+                        $data .= $output_badge;
+                    } else {
+                        // Each item has multiple arrays
+                        foreach($items as $key => $item){
+                            // Check if the key from the loop is the chosen type
+                            if ($key == $subtype) {
+                                $data .= $item . ', ';
+                            }
                         }
                     }  
                 }
-
             } else {
+                // If it's a normal field return it
                 $data = $return;
             }
-
         } else {
+            // IF the file can't be read fill each value with NULL
             $data = "NULL";
         }
         
@@ -277,7 +287,7 @@
                             echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field"><span class="field_text">' . ucwords(str_replace("_"," ", $preview_field)) . '</span>' . coderbits_profiler_data($preview_field, 'name') . '</div>';
                         break;
                         case 'badges':
-                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field">' . coderbits_profiler_data($preview_field, 'name') . '</div>';
+                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field">' . coderbits_profiler_data($preview_field) . '</div>';
                         break;
                     }
                 }

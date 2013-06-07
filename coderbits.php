@@ -9,6 +9,9 @@
         License: MIT
     */
     
+    //error_reporting(-1);
+    //ini_set('display_errors', true);
+
     add_action('admin_menu','coderbits_profiler');
 
     // create submenu page in the WordPress Settings menu
@@ -60,7 +63,7 @@
             $result = curl_exec($ch); // Getting jSON result string
             
             // Save the result into a local file
-            $save_file = file_put_contents("details.json", $result);
+            $save_file = file_put_contents(dirname(__FILE__) . '/cache/' . md5($username), $result);
 
             // Close request to clear up some resources
             curl_close($ch);          
@@ -166,33 +169,41 @@
     // Get data from JSON file
     function coderbits_profiler_data($type, $subtype = '') {
 
-        // Read the local file for data
-        $json_file = file_get_contents('details.json');
+        $file = dirname(__FILE__) . '/cache/' . md5(get_option('coderbits_profiler_username'));
         
-        // Parse the JSON result
-        $output = json_decode($json_file, true);
-        
-        // Output the requested field
-        $return = $output[$type];
+        if (file_exists($file)) {
 
-        // Check if the field is array
-        if (is_array($return)) {
-            // Limit counter
-            $count = 0;
-            foreach ($return as $items) {
-                foreach($items as $key => $item){
-                    // Load only 14 entries
-                    if (++$count > 14) break;
+            // Read the local file for data
+            $json_file = file_get_contents($file);
+            
+            // Parse the JSON result
+            $output = json_decode($json_file, true);
+            
+            // Output the requested field
+            $return = $output[$type];
 
-                    // Check if the key from the loop is the chosen type
-                    if ($key == $subtype) {
-                        $data .= $item . ', ';
-                    }
-                }  
+            // Check if the field is array
+            if (is_array($return)) {
+                // Limit counter
+                $count = 0;
+                foreach ($return as $items) {
+                    foreach($items as $key => $item){
+                        // Load only 14 entries
+                        if (++$count > 14) break;
+
+                        // Check if the key from the loop is the chosen type
+                        if ($key == $subtype) {
+                            $data .= $item . ', ';
+                        }
+                    }  
+                }
+
+            } else {
+                $data = $return;
             }
 
         } else {
-            $data = $return;
+            $data = "NULL";
         }
         
         return $data;

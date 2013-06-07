@@ -16,13 +16,13 @@
         add_submenu_page('options-general.php', 'Coderbits Profiler', 'Coderbits Profiler', 'edit_posts', 'coderbits_profiler', 'coderbits_profiler_options');
 	}
     
-    // Add settings link to plugins list
+    // Add settings link to plugin on plugins list
     function coderbits_add_settings_link($links) {
         $settings_link = '<a href="options-general.php?page=coderbits_profiler">Settings</a>';
         array_push($links, $settings_link);
         return $links;
     }
-    $plugin = plugin_basename( __FILE__ );
+    $plugin = plugin_basename(__FILE__);
     add_filter("plugin_action_links_$plugin", 'coderbits_add_settings_link');
 
 

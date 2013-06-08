@@ -3,7 +3,7 @@
         Plugin Name: Coderbits Profiler
         Plugin URI: https://github.com/stefanbc/Coderbits-Profiler
         Description: Grabs Coderbits JSON user data and displays it in your WordPress site as a widget.
-        Version: 0.9
+        Version: 1.0
         Author: Stefan Cosma
         Author URI: http://coderbits.com/stefanbc
         License: MIT
@@ -51,7 +51,7 @@
         // Updated the username setting with the current set username
         if($username) {
             
-            // We call for the JSON file only on username change
+            // We call for the JSON file on username change
             // jSON URL which should be requested
             $json_url = 'https://coderbits.com/' . $username . '.json';
              
@@ -92,10 +92,12 @@
             echo '<div class="sides">';
                 // The profile part
                 echo '<h2 class="zone-title-profile">Profile <small><i>Update profile options</i></small></h2>';
-                echo '<form method="post" id="profile_form">';
-                    echo '<div class="row">Current active Coderbits profile: <b>' . get_option('coderbits_profiler_username') . '</b></div>';
-                    echo '<div class="row">Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_profile_coderbits_profiler" id="update_profile_coderbits_profiler" value="Set Profile"></div>';
-                echo '</form>';
+                echo '<div class="row">Current active Coderbits profile: <b>' . get_option('coderbits_profiler_username') . '</b></div>';
+                echo '<div class="row">';
+                    echo '<form method="post" id="profile_form">';
+                        echo 'Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_profile_coderbits_profiler" id="update_profile_coderbits_profiler" value="Set Profile">';
+                    echo '</form>';
+                echo '</div>';
 
                 // The fields part
                 echo '<h2 class="zone-title-fields">Fields <small><i>Manage active/inactive fields</i></small></h2>';
@@ -216,7 +218,7 @@
                     // Get the badges count
                     $badges_count = coderbits_profiler_data('one_bit_badges') + coderbits_profiler_data('eight_bit_badges') + coderbits_profiler_data('sixteen_bit_badges') + coderbits_profiler_data('thirty_two_bit_badges') + coderbits_profiler_data('sixty_four_bit_badges');
                     // Output it
-                    $data .= '<a href="https://coderbits.com/' . get_option('coderbits_profiler_username') . '/badges" targe="_blank">view all ' . $badges_count . '</a>';
+                    $data .= '<a href="https://coderbits.com/' . get_option('coderbits_profiler_username') . '/badges" target="_blank">view all ' . $badges_count . '</a>';
                 } else {
                     // Get all the items in the array
                     foreach ($return as $items) {
@@ -271,7 +273,7 @@
                         // Output for views and rank are the same
                         case 'views':
                         case 'rank':
-                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field"><span class="field_text">' . ucwords($preview_field) . '</span> ' .coderbits_profiler_data($preview_field) . '</div>';
+                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field">' .coderbits_profiler_data($preview_field) . ' <span class="field_text">' . strtolower($preview_field) . '</span></div>';
                         break;
                         // Output the avatar
                         case 'gravatar_hash':
@@ -281,13 +283,13 @@
                         case 'badges_count':
                             $badges_count = coderbits_profiler_data('one_bit_badges') + coderbits_profiler_data('eight_bit_badges') + coderbits_profiler_data('sixteen_bit_badges') + coderbits_profiler_data('thirty_two_bit_badges') + coderbits_profiler_data('sixty_four_bit_badges');
 
-                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field"><span class="field_text">' . ucwords(substr($preview_field, 0, -6)) . '</span> ' . $badges_count . '</div>';
+                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field">' . $badges_count . ' <span class="field_text">' . strtolower(substr($preview_field, 0, -6)) . '</span></div>';
                         break;
                         // Output follower and following count are the same
                         case 'follower_count':
                         case 'following_count':
-                            $text = ($preview_field == "follower_count") ? "Followers" : "Friends";
-                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field"><span class="field_text">' . $text . '</span> ' . coderbits_profiler_data($preview_field) . '</div>';
+                            $text = ($preview_field == "follower_count") ? "followers" : "friends";
+                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field">' . coderbits_profiler_data($preview_field) . ' <span class="field_text">' . $text . '</span></div>';
                         break;
                         // Output top things are the same
                         case 'top_skills':

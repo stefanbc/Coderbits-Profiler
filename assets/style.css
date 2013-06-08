@@ -35,6 +35,10 @@ input[type='checkbox'] {
 	vertical-align: middle;
 	margin-bottom: 5px;
 }
+#profile_form,
+#update_profile_form {
+	display: inline-block;
+}
 .submit_button {
 	padding: 15px 0;
 	text-align: center;

@@ -177,14 +177,16 @@
     // Get data from JSON file
     function coderbits_profiler_data($type, $subtype = '') {
 
+        // The filename path
         $file = dirname(__FILE__) . '/cache/' . md5(get_option('coderbits_profiler_username'));
         
+        // Check if the file exists
         if (file_exists($file)) {
 
             // Read the local file for data
             $json_file = file_get_contents($file);
             
-            // Parse the JSON result
+            // Parse the JSON result from the file
             $output = json_decode($json_file, true);
             
             // Output the requested field
@@ -192,20 +194,24 @@
 
             // Check if the field is array
             if (is_array($return)) {
-                // Get all the items in the array
-                foreach ($return as $items) {
-                    // If the type is badge do other stuff
-                    if ($type == 'badges') {
+                // If the type is badge do other stuff
+                if ($type == 'badges') {
+                    // Get all the items in the array
+                    foreach ($return as $items) {
+                        // Each item has multiple arrays
                         foreach($items as $key => $badge) {
                             // Convert key => value arrays into variables
                             $$key = $badge;
-                            // Check if the badge is in ok
-                            if ($earned == true && !empty($earned_date)) {
-                                $output_badge = '<a href="' . $link . '" title="' . $name . ' - ' . $description . '" target="_blank"><img src="' . $image_link . '" class="badge" alt="badge">';
-                            }
+                            
                         }
-                        $data .= $output_badge;
-                    } else {
+                        if ($earned && !empty($earned_date)) {
+                            // Build the badge
+                            $data .= '<a href="' . $link . '" title="' . $name . ' - ' . $description . '" target="_blank"><img src="' . $image_link . '" class="badge" alt="badge"></a>';
+                        }
+                    }
+                } else {
+                    // Get all the items in the array
+                    foreach ($return as $items) {
                         // Each item has multiple arrays
                         foreach($items as $key => $item){
                             // Check if the key from the loop is the chosen type
@@ -213,14 +219,14 @@
                                 $data .= $item . ', ';
                             }
                         }
-                    }  
+                    }
                 }
             } else {
                 // If it's a normal field return it
                 $data = $return;
             }
         } else {
-            // IF the file can't be read fill each value with NULL
+            // If the file can't be read fill each value with NULL
             $data = "NULL";
         }
         

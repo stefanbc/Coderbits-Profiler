@@ -196,19 +196,27 @@
             if (is_array($return)) {
                 // If the type is badge do other stuff
                 if ($type == 'badges') {
+                    // Badge limit counter
+                    $badge_limit_counter = 0;
                     // Get all the items in the array
                     foreach ($return as $items) {
                         // Each item has multiple arrays
                         foreach($items as $key => $badge) {
                             // Convert key => value arrays into variables
                             $$key = $badge;
-                            
                         }
+                        // Check if the badge has been earned
                         if ($earned && !empty($earned_date)) {
                             // Build the badge
                             $data .= '<a href="' . $link . '" title="' . $name . ' - ' . $description . '" target="_blank"><img src="' . $image_link . '" class="badge" alt="badge"></a>';
+                            // Break the loop if we reach 15 entries
+                            if (++$badge_limit_counter == 15) break;
                         }
                     }
+                    // Get the badges count
+                    $badges_count = coderbits_profiler_data('one_bit_badges') + coderbits_profiler_data('eight_bit_badges') + coderbits_profiler_data('sixteen_bit_badges') + coderbits_profiler_data('thirty_two_bit_badges') + coderbits_profiler_data('sixty_four_bit_badges');
+                    // Output it
+                    $data .= '<a href="https://coderbits.com/' . get_option('coderbits_profiler_username') . '/badges" targe="_blank">view all ' . $badges_count . '</a>';
                 } else {
                     // Get all the items in the array
                     foreach ($return as $items) {

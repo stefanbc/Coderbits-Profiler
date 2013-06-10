@@ -54,6 +54,7 @@
             // We call for the JSON file on username change
             coderbits_profiler_get_json($username);   
             
+            // Update the username in the database
             update_option('coderbits_profiler_username', $username);
             
         }

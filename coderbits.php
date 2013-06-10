@@ -12,9 +12,9 @@
     add_action('admin_menu','coderbits_profiler');
 
     // create submenu page in the WordPress Settings menu
-	function coderbits_profiler() {
+    function coderbits_profiler() {
         add_submenu_page('options-general.php', 'Coderbits Profiler', 'Coderbits Profiler', 'edit_posts', 'coderbits_profiler', 'coderbits_profiler_options');
-	}
+    }
     
     // Add settings link to plugin on plugins list
     function coderbits_add_settings_link($links) {
@@ -52,31 +52,19 @@
         if($username) {
             
             // We call for the JSON file on username change
-            // jSON URL which should be requested
-            $json_url = 'https://coderbits.com/' . $username . '.json';
-             
-            // Initializing curl
-            $ch = curl_init($json_url);
-             
-            // Configuring curl options
-            $options = array(
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => array('Content-type: application/json')
-            );
-             
-            // Setting curl options
-            curl_setopt_array($ch, $options);
-             
-            // Getting results
-            $result = curl_exec($ch); // Getting jSON result string
-            
-            // Save the result into a local file
-            $save_file = file_put_contents(dirname(__FILE__) . '/cache/' . md5($username), $result);
-
-            // Close request to clear up some resources
-            curl_close($ch);          
+            coderbits_profiler_get_json($username);   
             
             update_option('coderbits_profiler_username', $username);
+            
+        }
+        
+        $update_profile_data = $wpdb->escape($_POST['update_profile_data']);
+        
+        // Updated the username setting with the current set username
+        if($update_profile_data) {
+            
+            // Get the new JSON data
+            coderbits_profiler_get_json(get_option('coderbits_profiler_username'));
             
         }
 
@@ -96,6 +84,9 @@
                 echo '<div class="row">';
                     echo '<form method="post" id="profile_form">';
                         echo 'Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_profile_coderbits_profiler" id="update_profile_coderbits_profiler" value="Set Profile">';
+                    echo '</form>';
+                    echo '<form method="post" id="update_profile_form">';
+                        echo '<input type="hidden" name="update_profile_data" id="update_profile_data" value="true"><input type="submit" name="update_profile_data_coderbits_profiler" id="update_profile_data_coderbits_profiler" value="Update Data">';
                     echo '</form>';
                 echo '</div>';
 
@@ -174,6 +165,33 @@
                 coderbits_profiler_output_data();
             echo '</div>';
         echo '</div>';
+    }
+    
+    // Get the JSON file from coderbits
+    function coderbits_profiler_get_json($username) {
+        // jSON URL which should be requested
+        $json_url = 'https://coderbits.com/' . $username . '.json';
+         
+        // Initializing curl
+        $ch = curl_init($json_url);
+         
+        // Configuring curl options
+        $options = array(
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER => array('Content-type: application/json')
+        );
+         
+        // Setting curl options
+        curl_setopt_array($ch, $options);
+         
+        // Getting results
+        $result = curl_exec($ch); // Getting jSON result string
+        
+        // Save the result into a local file
+        $save_file = file_put_contents(dirname(__FILE__) . '/cache/' . md5($username), $result);
+
+        // Close request to clear up some resources
+        curl_close($ch);
     }
     
     // Get data from JSON file
@@ -318,19 +336,19 @@
     class CoderbitsProfilerWidget extends WP_Widget {
 
         function CoderbitsProfilerWidget() {
-    		// Instantiate the parent object
-    		parent::__construct(false, 'Coderbits Profiler');
-    	}
+            // Instantiate the parent object
+            parent::__construct(false, 'Coderbits Profiler');
+        }
         
         // Output to frontend widget
-    	function widget($args, $instance) {
+        function widget($args, $instance) {
             coderbits_profiler_output_data();
-    	}
+        }
     }
     
     // Register the widget
     function coderbits_profiler_register_widgets() {
-    	register_widget('CoderbitsProfilerWidget');
+        register_widget('CoderbitsProfilerWidget');
     }
     
     add_action('widgets_init', 'coderbits_profiler_register_widgets');

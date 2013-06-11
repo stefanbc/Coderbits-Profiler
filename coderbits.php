@@ -34,7 +34,12 @@
             echo '</div>';
         }
     }
-    add_action('admin_notices', 'cache_folder_notice');
+
+    function notification($message){
+        echo '<div class="updated">';
+            echo '<p>' . $message . '</p>';
+        echo '</div>';
+    }
 
     // Plugin options
     function coderbits_profiler_options(){
@@ -44,6 +49,8 @@
         add_option('coderbits_profiler_username', $username);
         add_option('coderbits_profiler_active_fields', $active_fields);
         add_option('coderbits_profiler_inactive_fields', $inactive_fields);
+
+        add_action('admin_notices', 'cache_folder_notice');
 
         // Get the username
         $username = $wpdb->escape($_POST['username']);
@@ -66,7 +73,10 @@
             
             // Get the new JSON data
             coderbits_profiler_get_json(get_option('coderbits_profiler_username'));
-            
+            // Notify the user
+            notification("You profile data has been updated");
+            add_action('admin_notices', 'notification');
+                    
         }
 
         // Styling and scripting
@@ -152,6 +162,7 @@
                                 echo '<span id="top_traits" class="field" draggable="true" ondragstart="dragField(this, event)">Top Traits</span>';
                                 echo '<span id="top_areas" class="field" draggable="true" ondragstart="dragField(this, event)">Top Areas</span>';
                                 echo '<span id="badges" class="field" draggable="true" ondragstart="dragField(this, event)">Badges</span>';
+                                echo '<span id="accounts" class="field" draggable="true" ondragstart="dragField(this, event)">Accounts</span>';
                             }
                         echo '</div>';
                     echo '</div>';
@@ -238,6 +249,21 @@
                     $badges_count = coderbits_profiler_data('one_bit_badges') + coderbits_profiler_data('eight_bit_badges') + coderbits_profiler_data('sixteen_bit_badges') + coderbits_profiler_data('thirty_two_bit_badges') + coderbits_profiler_data('sixty_four_bit_badges');
                     // Output it
                     $data .= '<a href="https://coderbits.com/' . get_option('coderbits_profiler_username') . '/badges" target="_blank">view all ' . $badges_count . '</a>';
+                } elseif ($type == 'accounts') {
+                    // Get all the items in the array
+                    foreach ($return as $items) {
+                        // Each item has multiple arrays
+                        foreach($items as $key => $account) {
+                            // Convert key => value arrays into variables
+                            $$key = $account;
+                        }
+                        // Build the account link
+                        $image_file = plugins_url('/assets/accounts/' . strtolower($name) . '.png', __FILE__ );
+                        if (!file_exists($image_file)) {
+                            $image_file = plugins_url('/assets/accounts/default.png', __FILE__ );
+                        }
+                        $data .= '<a href="' . $link . '" title="' . $name . '" target="_blank"><img src="' . $image_file . '" class="account" alt="account"></a>';
+                    }
                 } else {
                     // Get all the items in the array
                     foreach ($return as $items) {
@@ -323,6 +349,9 @@
                         break;
                         case 'badges':
                             echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field">' . coderbits_profiler_data($preview_field) . '</div>';
+                        break;
+                        case 'accounts':
+                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field"><span class="field_text">On the web</span>' . coderbits_profiler_data($preview_field) . '</div>';
                         break;
                     }
                 }

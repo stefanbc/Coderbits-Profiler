@@ -93,11 +93,11 @@
 	width: 100%;
 	padding: 10px 0;
 }
-.accounts .field_text {
-	text-align: left;
-}
-.badge,.account {
+.badge {
 	width: 32px;
 	height: 32px;
 	padding: 2px;
 }
+.accounts { text-align: justify; }
+.accounts .field_text { text-align: left; }
+.account { padding: 2px; }

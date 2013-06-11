@@ -258,10 +258,7 @@
                             $$key = $account;
                         }
                         // Build the account link
-                        $image_file = plugins_url('/assets/accounts/' . strtolower($name) . '.png', __FILE__ );
-                        if (!file_exists($image_file)) {
-                            $image_file = plugins_url('/assets/accounts/default.png', __FILE__ );
-                        }
+                        $image_file = 'https://plus.google.com/_/favicon?domain=' . $site_link;
                         $data .= '<a href="' . $link . '" title="' . $name . '" target="_blank"><img src="' . $image_file . '" class="account" alt="account"></a>';
                     }
                 } else {

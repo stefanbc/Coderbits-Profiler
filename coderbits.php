@@ -59,8 +59,11 @@
         if($username) {
             
             // We call for the JSON file on username change
-            coderbits_profiler_get_json($username);   
-            
+            coderbits_profiler_get_json($username);
+            // NOtify the user
+            notification("The profile handler you entered has been aggregated.");
+            add_action('admin_notices', 'notification');
+
             // Update the username in the database
             update_option('coderbits_profiler_username', $username);
             
@@ -74,7 +77,7 @@
             // Get the new JSON data
             coderbits_profiler_get_json(get_option('coderbits_profiler_username'));
             // Notify the user
-            notification("You profile data has been updated");
+            notification("Your profile data has been updated");
             add_action('admin_notices', 'notification');
                     
         }

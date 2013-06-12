@@ -23,24 +23,8 @@ Grabs Coderbits JSON user data and displays it in your WordPress site as a widge
 5. View your site.
 6. Adjust the CSS of your theme as needed, to make everything pretty.
 
-== Frequently asked questions ==
-
-= A question that someone might have =
-
-An answer to that question.
-
 == Screenshots ==
 
 1. 
 2. 
-
-== Changelog ==
-
-
-
-== Upgrade notice ==
-
-
-
-== Arbitrary section 1 ==
 

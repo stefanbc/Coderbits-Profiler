@@ -261,11 +261,13 @@
                             $$key = $account;
                         }
                         // Build the account link
-                        $image_file = plugins_url('assets/accounts/' . strtolower($name) . '-32.png' , __FILE__ );
-                        if (!file_exists($image_file)) {
-                            //$image_file = plugins_url('assets/accounts/default.png' , __FILE__ );
+                        $account_image = dirname(__FILE__) . '/assets/accounts/' . str_replace(" ","",strtolower($name)) . '-32.png';
+                        if (file_exists($account_image)) {
+                            $account_image = plugins_url('assets/accounts/' . str_replace(" ","",strtolower($name)) . '-32.png', __FILE__ );
+                        } else {
+                            $account_image = plugins_url('assets/accounts/default.png', __FILE__ );
                         }
-                        $data .= '<a href="' . $link . '" title="' . $name . '" target="_blank"><img src="' . $image_file . '" class="account ' . strtolower($name) . '" alt="account"></a>';
+                        $data .= '<a href="' . $link . '" title="' . $name . '" target="_blank"><img src="' . $account_image . '" class="account ' . str_replace(" ","",strtolower($name)) . '" alt="account"></a>';
                     }
                 } else {
                     // Get all the items in the array

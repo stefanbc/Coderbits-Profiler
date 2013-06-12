@@ -96,7 +96,6 @@
 .badge,.account {
 	width: 32px;
 	height: 32px;
-	padding: 2px;
+	margin: 2px;
 }
-.accounts { text-align: justify; }
 .accounts .field_text { text-align: left; }

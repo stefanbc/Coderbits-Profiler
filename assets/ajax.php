@@ -1,5 +1,5 @@
 <?php
-	require_once dirname(__FILE__) . '/wp-load.php';
+	require_once ABSPATH . 'wp-load.php';
 
 	global $wpdb;
 
@@ -11,10 +11,10 @@
 
 			$active_fields = explode(',',$_POST['active_fields']);
 			$inactive_fields = explode(',',$_POST['inactive_fields']);
-			
+
 			$active = update_option('coderbits_profiler_active_fields', serialize($active_fields));
 			$inactive = update_option('coderbits_profiler_inactive_fields', serialize($inactive_fields));
-
+			
 			if ($active && $inactive) {
 				echo 'Yes';
 			} else {

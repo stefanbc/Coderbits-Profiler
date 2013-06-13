@@ -23,6 +23,20 @@
 			}
 
 		break;
+        
+        case 'save_options':
+            
+            $plugin_options = explode(',',$_POST['plugin_options']);
+            
+			$options = update_option('coderbits_profiler_options', serialize($plugin_options));
+			
+			if ($options) {
+				echo 'Yes';
+			} else {
+				echo 'No';
+			}
+            
+        break;
 
 	}
 ?>

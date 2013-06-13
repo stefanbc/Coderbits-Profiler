@@ -110,8 +110,18 @@ input[type='checkbox'] {
 	cursor: move;
 	color: #fff;
 }
+.alert {
+    font-style: italic;
+    font-size: 13px;
+    color: #E01B1B;
+    display: block;
+    margin-top: 5px;
+    text-align: center;
+}
 .update {
 	font-style: italic;
-	color: #14B81F;
-	padding-left: 5px;
+    font-size: 13px;
+    color: #14B81F;
+    display: block;
+    margin-top: 5px;
 }

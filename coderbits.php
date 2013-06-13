@@ -51,6 +51,7 @@
         add_option('coderbits_profiler_username', $username);
         add_option('coderbits_profiler_active_fields', $active_fields);
         add_option('coderbits_profiler_inactive_fields', $inactive_fields);
+        add_option('coderbits_profiler_options', $plugin_options);
 
         // Check if the cache folder is writable
         cache_folder_notice();
@@ -84,9 +85,9 @@
             // Notify the user
             notification("Your profile data has been updated");
             add_action('admin_notices', 'notification');
-                    
+            
         }
-
+        
         // Styling and scripting
         echo '<link href="//fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet" type="text/css">';
         echo '<link href="' . plugins_url( 'assets/style.css' , __FILE__ ) . '" rel="stylesheet" type="text/css">';
@@ -181,6 +182,34 @@
 
             // The right part
             echo '<div class="sides">';
+                echo '<h2 class="zone-title-preview">Widget Options <small><i>Change widget options</i></small></h2>';    
+                echo '<form method="post" id="options_form">';
+                echo '<div class="row">Select a visual theme for the widget ';
+                $plugin_options = unserialize(get_option('coderbits_profiler_options'));
+                switch($plugin_options[0]){
+                    case '1':
+                        $selected1 = 'selected';
+                    break;
+                    case '2':
+                        $selected2 = 'selected';
+                    break;
+                    case '3':
+                        $selected3 = 'selected';
+                    break;
+                    case '4':
+                        $selected4 = 'selected';
+                    break;
+                }
+                echo '<select name="coderbits_profiler_options_visual_theme" id="coderbits_profiler_options_visual_theme">';
+                    echo '<option value="1" ' . $selected1 . '>None</option>';
+                    echo '<option value="2" ' . $selected2 . '>White</option>';
+                    echo '<option value="3" ' . $selected3 . '>Black</option>';
+                    echo '<option value="4" ' . $selected4 . '>Transparent</option>';
+                echo '</select><br>';
+                echo '<span class="alert">Warning! If you choose None, no visual style will be applied to your widget.</span>';
+                echo '</div>';
+                echo '<div id="options_submit_button" class="submit_button"><input type="submit" name="update_options_coderbits_profiler" id="update_options_coderbits_profiler" value="Save Options"></div>';
+                echo '</form>';
                 echo '<h2 class="zone-title-preview">Preview Widget <small><i>Preview widget based on your settings</i></small></h2>';
                 coderbits_profiler_output_data();
             echo '</div>';
@@ -236,6 +265,7 @@
             if (is_array($return)) {
                 // If the type is badge do other stuff
                 if ($type == 'badges') {
+                    
                     // Badge limit counter
                     $badge_limit_counter = 0;
                     // Get all the items in the array
@@ -248,7 +278,7 @@
                         // Check if the badge has been earned
                         if ($earned && !empty($earned_date)) {
                             // Build the badge
-                            $data .= '<a href="' . $link . '" title="' . $name . ' - ' . $description . '" target="_blank"><img src="' . $image_link . '" class="badge" alt="badge"></a>';
+                            $data .= '<a href="' . $link . '" title="' . $name . ' - ' . $description . '" target="_blank"><img src="' . $image_link . '"  width="45px" height="45px" class="badge" alt="badge"></a>';
                             // Break the loop if we reach 15 entries
                             if (++$badge_limit_counter == 15) break;
                         }
@@ -257,7 +287,9 @@
                     $badges_count = coderbits_profiler_data('one_bit_badges') + coderbits_profiler_data('eight_bit_badges') + coderbits_profiler_data('sixteen_bit_badges') + coderbits_profiler_data('thirty_two_bit_badges') + coderbits_profiler_data('sixty_four_bit_badges');
                     // Output it
                     $data .= '<a href="https://coderbits.com/' . get_option('coderbits_profiler_username') . '/badges" target="_blank">view all ' . $badges_count . '</a>';
+                    
                 } elseif ($type == 'accounts') {
+                    
                     // Get all the items in the array
                     foreach ($return as $items) {
                         // Each item has multiple arrays
@@ -303,7 +335,24 @@
         // Get the active fields
         $preview_fields = unserialize(get_option('coderbits_profiler_active_fields'));
         if (!empty($preview_fields)) {
-            echo '<link href="' . plugins_url( 'assets/output_styling.css' , __FILE__ ) . '" rel="stylesheet" type="text/css">';
+            
+            $plugin_options = unserialize(get_option('coderbits_profiler_options'));
+            switch($plugin_options[0]){
+                case '1':
+                    $visual_theme = '';
+                break;
+                case '2':
+                    $visual_theme = '<link href="' . plugins_url( 'assets/style_white.css' , __FILE__ ) . '" rel="stylesheet" type="text/css">';
+                break;
+                case '3':
+                    $visual_theme = '<link href="' . plugins_url( 'assets/style_black.css' , __FILE__ ) . '" rel="stylesheet" type="text/css">';
+                break;
+                case '4':
+                    $visual_theme = '<link href="' . plugins_url( 'assets/style_transparent.css' , __FILE__ ) . '" rel="stylesheet" type="text/css">';
+                break;
+            }
+            
+            echo $visual_theme;
             echo '<div class="cp_output_wrapper">';
             foreach ($preview_fields as $preview_field) {
                 if (!empty($preview_field)) {

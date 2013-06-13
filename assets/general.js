@@ -26,8 +26,11 @@ function dropField(target, event) {
 					setTimeout(function() {
 						$('#fields_submit_button .update').remove();
 					}, 3000);
+<<<<<<< HEAD
 				} else {
                     console.log(data);   
+=======
+>>>>>>> 762db7119b84dccf7108487c585b11deb169965d
 				}
 			});
 			return false;

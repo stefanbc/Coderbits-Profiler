@@ -474,7 +474,7 @@
         $output .= '}';
 
         // Save the result into a local file
-        $save_file = file_put_contents(dirname(__FILE__) . '/cache/.geojson', $output);
+        $save_file = file_put_contents(dirname(__FILE__) . '/cache/location.geojson', $output);
 
     }
 ?>

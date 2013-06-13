@@ -23,7 +23,7 @@ Manifest
 
 **Tested up to:** 3.5.1
 
-**Stable tag:** 1.1
+**Stable tag:** 1.1.1
 
 **License:** GPLv2 or later
 

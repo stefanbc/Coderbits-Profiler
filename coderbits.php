@@ -86,6 +86,11 @@
             // Notify the user
             notification("Your profile data has been updated");
             add_action('admin_notices', 'notification');
+
+            // We get the users location for maps on Github
+            $coordinates = getCoordinates(coderbits_profiler_data('location'));
+            // And we write them to a geojson file
+            writeCoordinates($coordinates);
             
         }
         
@@ -442,4 +447,29 @@
     }
     
     add_action('widgets_init', 'coderbits_profiler_register_widgets');
+
+    // Get coordinates for the maps on Github
+    function getCoordinates($address){
+ 
+        $address = str_replace(" ", "+", $address); // replcae all the white space with "+" sign to match with google search pattern
+     
+        $url = "http://maps.google.com/maps/api/geocode/json?sensor=false&address=$address";
+     
+        $response = file_get_contents($url);
+     
+        $json = json_decode($response,TRUE); //generate array object from the response from the web
+     
+        return ($json['results'][0]['geometry']['location']['lat'].",".$json['results'][0]['geometry']['location']['lng']);
+
+    }
+
+    // Write coordinates to the .geojson file
+    function writeCoordinates($coordinates){
+
+        $output = '{"type": "Point","coordinates": [' . $coordinates . ']}';
+
+        // Save the result into a local file
+        $save_file = file_put_contents(dirname(__FILE__) . '/cache/.geojson', $output);
+
+    }
 ?>

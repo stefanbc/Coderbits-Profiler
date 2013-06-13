@@ -466,12 +466,14 @@
     // Write coordinates to the .geojson file
     function writeCoordinates($coordinates){
 
-        $output = '{' . "\n\r";
+        $output = '{ "type": "FeatureCollection",' . "\n\r";
+        $output .= '"features": [';
+        $output .= '{' . "\n\r";
         $output .= '"type": "Point",' . "\n\r";
         $output .= '"coordinates": [' . "\n\r"; 
         $output .= $coordinates . "\n\r";
         $output .= ']' . "\n\r";
-        $output .= '}';
+        $output .= '}}';
 
         // Save the result into a local file
         $save_file = file_put_contents(dirname(__FILE__) . '/cache/location.geojson', $output);

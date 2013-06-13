@@ -1,6 +1,7 @@
-{
+{ "type": "FeatureCollection",
+"features": [{
 "type": "Point",
 "coordinates": [
 -85.84211,10.29908
 ]
-}
+}}

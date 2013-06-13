@@ -28,13 +28,15 @@
 
     // Check if the cache folder is writable
     function cache_folder_notice() {
-        if (!is_writable(dirname(__FILE__) . '/cache/')) {
+        $file = substr(sprintf('%o', fileperms(dirname(__FILE__) . '/cache')), -4);
+        if ($file != "0777") {
             echo '<div class="error">';
                 echo '<p>The Coderbits Profiler cache folder is not writable! Please chmod(777) the cache folder.</p>';
             echo '</div>';
         }
     }
 
+    // General notification function
     function notification($message){
         echo '<div class="updated">';
             echo '<p>' . $message . '</p>';
@@ -50,6 +52,8 @@
         add_option('coderbits_profiler_active_fields', $active_fields);
         add_option('coderbits_profiler_inactive_fields', $inactive_fields);
 
+        // Check if the cache folder is writable
+        cache_folder_notice();
         add_action('admin_notices', 'cache_folder_notice');
 
         // Get the username
@@ -69,6 +73,7 @@
             
         }
         
+        // Get the submit for the update data function
         $update_profile_data = $wpdb->escape($_POST['update_profile_data']);
         
         // Updated the username setting with the current set username

@@ -1,10 +1,6 @@
 <?php
-<<<<<<< HEAD
     $parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
 	require_once ($parse_uri[0] . 'wp-load.php');
-=======
-	require_once ABSPATH . 'wp-load.php';
->>>>>>> 762db7119b84dccf7108487c585b11deb169965d
 
 	global $wpdb;
 

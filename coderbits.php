@@ -3,7 +3,7 @@
         Plugin Name: Coderbits Profiler
         Plugin URI: https://github.com/stefanbc/Coderbits-Profiler
         Description: Grabs Coderbits JSON user data and displays it in your WordPress site as a widget.
-        Version: 1.1.1
+        Version: 1.2
         Author: Stefan Cosma
         Author URI: http://coderbits.com/stefanbc
         License: GPLv2 or later
@@ -314,7 +314,9 @@
                         foreach($items as $key => $item){
                             // Check if the key from the loop is the chosen type
                             if ($key == $subtype) {
-                                $data .= $item . ', ';
+                                $data .= $item;
+                                // Add comma after each element except the last one
+                                if (next($items)) $data .= ', '; 
                             }
                         }
                     }
@@ -441,5 +443,25 @@
         register_widget('CoderbitsProfilerWidget');
     }
     
+    // Hook the widget to widgets_init action
     add_action('widgets_init', 'coderbits_profiler_register_widgets');
+
+    // Create the shortcode to use in posts or pages
+    function coderbits_profiler_output_data_shortcode($params) {
+        extract(shortcode_atts(array(
+            'data' => ''
+        ), $params));
+        
+        $output = coderbits_profiler_data($data);
+
+        return $output;
+    }
+
+    // Register the shortcode
+    function coderbits_profiler_register_shortcodes(){ 
+        add_shortcode('coderbits-profiler', 'coderbits_profiler_output_data_shortcode');
+    }
+
+    // Hook the shortcode to Wordpress init
+    add_action('init', 'coderbits_profiler_register_shortcodes');
 ?>

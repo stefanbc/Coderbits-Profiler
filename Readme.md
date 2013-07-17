@@ -18,8 +18,9 @@ Installation
 3. Activate the `Coderbits Profiler` plugin.
 4. Visit `Settings` and adjust your configuration.
 5. Add the `Coderbits Profiler` widget to your website.
-6. View your site.
-7. Adjust the CSS of your theme as needed, to make everything pretty.
+6. (Optional) Add the `Coderbits Profiler` shortcode `[coderbits data="TYPE_OF_DATA"]` to a page or post
+7. View your site.
+8. Adjust the CSS of your theme as needed, to make everything pretty.
 
 Manifest
 ------

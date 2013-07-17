@@ -7,6 +7,10 @@ This plugin is using the provided Coderbits API that can be accesed [here](http:
 
 To use the shortcode functionality just call `[coderbits data="TYPE_OF_DATA"]` in a page or post.
 
+**Types of data:**
+
+`name`, `title`, `bio`, `location`, `website_link`, `views`, `rank`, `follower_count`, `following_count`, `top_skills`, `top_languages`, `top_environments`, `top_frameworks`, `top_tools`, `top_interests`, `top_traits`, `top_areas`, `badges`, `accounts`
+
 Installation
 -----------
 1. Place the `coderbits-profiler` folder in your `/wp-content/plugins/` directory.

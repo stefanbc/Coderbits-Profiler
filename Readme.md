@@ -1,7 +1,11 @@
 Coderbits Profiler
 ==================
 
-Grabs Coderbits JSON user data and displays it on your WordPress site as a widget.
+Display your Coderbits profile data using a widget or a shortcode.
+
+This plugin is using the provided Coderbits API that can be accesed [here](http://coderbits.com/api).
+
+To use the shortcode functionality just call '[coderbits data="*TYPE_OF_DATA*"]' in a page or post.
 
 Installation
 -----------

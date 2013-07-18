@@ -5,7 +5,7 @@ Display your Coderbits profile data using a widget or a shortcode.
 
 This plugin is using the provided Coderbits API that can be accesed [here](http://coderbits.com/api).
 
-To use the shortcode functionality just call `[coderbits data="TYPE_OF_DATA"]` in a page or post.
+To use the shortcode functionality just call `[coderbits-profiler data="TYPE_OF_DATA"]` in a page or post.
 
 **Types of data:**
 
@@ -18,7 +18,7 @@ Installation
 3. Activate the `Coderbits Profiler` plugin.
 4. Visit `Settings` and adjust your configuration.
 5. Add the `Coderbits Profiler` widget to your website.
-6. (Optional) Add the `Coderbits Profiler` shortcode `[coderbits data="TYPE_OF_DATA"]` to a page or post
+6. **(Optional)** Add the `Coderbits Profiler` shortcode `[coderbits-profiler data="TYPE_OF_DATA"]` to a page or post
 7. View your site.
 8. Adjust the CSS of your theme as needed, to make everything pretty.
 

@@ -30,7 +30,7 @@
     // Check if the cache folder is writable
     function cache_folder_notice() {
         $file = substr(sprintf('%o', fileperms(dirname(__FILE__) . '/cache')), -4);
-        if ($file != "0777") {
+        if ($file != "0777" || $file != "0666") {
             echo '<div class="error">';
                 echo '<p>The Coderbits Profiler cache folder is not writable! Please chmod(777) the cache folder.</p>';
             echo '</div>';

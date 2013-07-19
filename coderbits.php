@@ -30,7 +30,7 @@
     // Check if the cache folder is writable
     function cache_folder_notice() {
         $file = substr(sprintf('%o', fileperms(dirname(__FILE__) . '/cache')), -4);
-        if ($file != "0777" || $file != "0666") {
+        if ($file != "0777") {
             echo '<div class="error">';
                 echo '<p>The Coderbits Profiler cache folder is not writable! Please chmod(777) the cache folder.</p>';
             echo '</div>';
@@ -92,6 +92,7 @@
         // Styling and scripting
         echo '<link href="//fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet" type="text/css">';
         echo '<link href="' . plugins_url( 'assets/style.css' , __FILE__ ) . '" rel="stylesheet" type="text/css">';
+        echo '<script type="text/javascript">var AJAX_FILE = "' . plugins_url( 'assets/ajax.php' , __FILE__ ) . '";</script>';
         echo '<script src="' . plugins_url( 'assets/general.js' , __FILE__ ) . '" type="text/javascript"></script>';
 
         // Start the content part

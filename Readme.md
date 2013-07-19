@@ -14,7 +14,7 @@ To use the shortcode functionality just call `[coderbits-profiler data="TYPE_OF_
 Installation
 -----------
 1. Place the `coderbits-profiler` folder in your `/wp-content/plugins/` directory.
-2. Give the cache folder write permissions. Usually `chmod(777)` or `chmod(666)`.
+2. Give the cache folder write permissions. Usually `chmod(777)`.
 3. Activate the `Coderbits Profiler` plugin.
 4. Visit `Settings` and adjust your configuration.
 5. Add the `Coderbits Profiler` widget to your website.

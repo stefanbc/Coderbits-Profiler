@@ -9,7 +9,7 @@ To use the shortcode functionality just call `[coderbits-profiler data="TYPE_OF_
 
 **Types of data:**
 
-`name` `title` `bio` `location` `website_link` `views` `rank` `follower_count` `following_count` `top_skills` `top_languages` `top_environments` `top_frameworks` `top_tools` `top_interests` `top_traits` `top_areas` `badges` `accounts`
+`name` `title` `bio` `location` `website_link` `views` `rank` `gravatar_hash` `badges_count` `follower_count` `following_count` `top_skills` `top_languages` `top_environments` `top_frameworks` `top_tools` `top_interests` `top_traits` `top_areas` `badges` `accounts`
 
 Installation
 -----------

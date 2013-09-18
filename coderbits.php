@@ -2,8 +2,8 @@
     /*
         Plugin Name: Coderbits Profiler
         Plugin URI: https://github.com/stefanbc/Coderbits-Profiler
-        Description: Grabs Coderbits JSON user data and displays it in your WordPress site as a widget.
-        Version: 1.2.1
+        Description: Display your Coderbits profile data using a widget or a shortcode.
+        Version: 1.2.2
         Author: Stefan Cosma
         Author URI: http://coderbits.com/stefanbc
         License: GPLv2 or later
@@ -306,6 +306,7 @@
                         } else {
                             $account_image = plugins_url('assets/accounts/default.png', __FILE__ );
                         }
+                        // $account_image = 'http://coderbits.com/images/' . str_replace(" ","",strtolower($name)) . '32.png';
                         $data .= '<a href="' . $link . '" title="' . $name . '" target="_blank"><img src="' . $account_image . '" class="account ' . str_replace(" ","",strtolower($name)) . '" alt="account"></a>';
                     }
                 } else {
@@ -453,8 +454,28 @@
             'data' => ''
         ), $params));
         
-        $output = coderbits_profiler_data($data);
-
+        switch($data){
+            case 'gravatar_hash':
+                $output = '<img src="http://www.gravatar.com/avatar/' . coderbits_profiler_data($data) . '">';
+            break;
+            case 'badges_count':
+                $output = coderbits_profiler_data('one_bit_badges') + coderbits_profiler_data('eight_bit_badges') + coderbits_profiler_data('sixteen_bit_badges') + coderbits_profiler_data('thirty_two_bit_badges') + coderbits_profiler_data('sixty_four_bit_badges');
+            break;
+            case 'top_skills':
+            case 'top_languages':
+            case 'top_environments':
+            case 'top_frameworks':
+            case 'top_tools':
+            case 'top_interests':
+            case 'top_traits':
+            case 'top_areas':
+                $output = coderbits_profiler_data($data, 'name');
+            break;
+            default:
+                $output = coderbits_profiler_data($data);
+            break;
+        }
+        
         return $output;
     }
 

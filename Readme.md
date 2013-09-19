@@ -30,7 +30,7 @@ Manifest
 
 **Requires at least:** 3.3
 
-**Tested up to:** 3.5.1
+**Tested up to:** 3.6.1
 
 **Stable tag:** 1.2.2
 

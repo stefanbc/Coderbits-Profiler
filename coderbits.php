@@ -3,7 +3,7 @@
         Plugin Name: Coderbits Profiler
         Plugin URI: https://github.com/stefanbc/Coderbits-Profiler
         Description: Display your Coderbits profile data using a widget or a shortcode.
-        Version: 1.2.2
+        Version: 1.2.3
         Author: Stefan Cosma
         Author URI: http://coderbits.com/stefanbc
         License: GPLv2 or later
@@ -36,14 +36,33 @@
             echo '</div>';
         }
     }
-
+    
     // General notification function
     function notification($message){
         echo '<div class="updated">';
             echo '<p>' . $message . '</p>';
         echo '</div>';
     }
+    
+    // Add styles to the admin header
+    function coderbits_profiler_admin_styles() {
+        // Register the styles
+        wp_register_style('coderbits_profiler_admin_font', 'https://fonts.googleapis.com/css?family=Roboto:300,400');
+    	wp_register_style('coderbits_profiler_admin_style', plugins_url('assets/style.css', __FILE__ ));
+    	
+    	// Register the script
+    	wp_register_script('coderbits_profiler_admin_script', plugins_url( 'assets/general.js' , __FILE__ ));
 
+    	// Enqueue styles
+    	wp_enqueue_style('coderbits_profiler_admin_font');
+    	wp_enqueue_style('coderbits_profiler_admin_style');
+    	
+    	// Enqueue the script
+    	wp_enqueue_script('coderbits_profiler_admin_script');
+    }
+    // Add styles to admin area
+    add_action('admin_enqueue_scripts', 'coderbits_profiler_admin_styles');
+    
     // Plugin options
     function coderbits_profiler_options(){
         global $wpdb;
@@ -90,10 +109,7 @@
         }
         
         // Styling and scripting
-        echo '<link href="//fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet" type="text/css">';
-        echo '<link href="' . plugins_url( 'assets/style.css' , __FILE__ ) . '" rel="stylesheet" type="text/css">';
         echo '<script type="text/javascript">var AJAX_FILE = "' . plugins_url( 'assets/ajax.php' , __FILE__ ) . '";</script>';
-        echo '<script src="' . plugins_url( 'assets/general.js' , __FILE__ ) . '" type="text/javascript"></script>';
 
         // Start the content part
         echo '<div class="main-wrapper">';
@@ -299,15 +315,23 @@
                             // Convert key => value arrays into variables
                             $$key = $account;
                         }
-                        // Build the account link
-                        $account_image = dirname(__FILE__) . '/assets/accounts/' . str_replace(" ","",strtolower($name)) . '-32.png';
-                        if (file_exists($account_image)) {
-                            $account_image = plugins_url('assets/accounts/' . str_replace(" ","",strtolower($name)) . '-32.png', __FILE__ );
+                        
+                        // If it's used as a shortcode show coderbits provided image
+                        if($subtype == 'original') {
+                            $account_image = 'http://coderbits.com/images/' . str_replace(" ","",strtolower($name)) . '32.png';
+                            
+                            $data .= '<a href="' . $link . '" title="' . $name . '" target="_blank"><img src="' . $account_image . '" class="account_shortcode" alt="account"></a>';
                         } else {
-                            $account_image = plugins_url('assets/accounts/default.png', __FILE__ );
+                            // Build the account link
+                            $account_image = dirname(__FILE__) . '/assets/accounts/' . str_replace(" ","",strtolower($name)) . '-32.png';
+                            if (file_exists($account_image)) {
+                                $account_image = plugins_url('assets/accounts/' . str_replace(" ","",strtolower($name)) . '-32.png', __FILE__ );
+                            } else {
+                                $account_image = plugins_url('assets/accounts/default.png', __FILE__ );
+                            }
+                            
+                            $data .= '<a href="' . $link . '" title="' . $name . '" target="_blank"><img src="' . $account_image . '" class="account ' . str_replace(" ","",strtolower($name)) . '" alt="account"></a>';
                         }
-                        // $account_image = 'http://coderbits.com/images/' . str_replace(" ","",strtolower($name)) . '32.png';
-                        $data .= '<a href="' . $link . '" title="' . $name . '" target="_blank"><img src="' . $account_image . '" class="account ' . str_replace(" ","",strtolower($name)) . '" alt="account"></a>';
                     }
                 } else {
                     // Get all the items in the array
@@ -334,6 +358,35 @@
         
         return $data;
     }
+    
+    // Add styles to the header
+    function coderbits_profiler_widget_styles() {
+        $plugin_options = unserialize(get_option('coderbits_profiler_options'));
+        switch($plugin_options[0]){
+            case '1':
+                // Register the style
+    	        wp_register_style('coderbits_profiler_style', plugins_url('assets/style_none.css', __FILE__ ));
+            break;
+            case '2':
+                // Register the style
+    	        wp_register_style('coderbits_profiler_style', plugins_url('assets/style_white.css', __FILE__ ));
+            break;
+            case '3':
+                // Register the style
+    	        wp_register_style('coderbits_profiler_style', plugins_url('assets/style_black.css', __FILE__ ));
+            break;
+            case '4':
+                // Register the style
+    	        wp_register_style('coderbits_profiler_style', plugins_url('assets/style_transparent.css', __FILE__ ));
+            break;
+        }
+    	// Enqueue the style
+    	wp_enqueue_style('coderbits_profiler_style');
+    }
+    // Add styles to front
+    add_action('wp_enqueue_scripts', 'coderbits_profiler_widget_styles');
+    // Add styles to admin area
+    add_action('admin_enqueue_scripts', 'coderbits_profiler_widget_styles');
 
     // Output function used by preview and widget
     function coderbits_profiler_output_data(){
@@ -342,22 +395,7 @@
         if (!empty($preview_fields)) {
             
             $plugin_options = unserialize(get_option('coderbits_profiler_options'));
-            switch($plugin_options[0]){
-                case '1':
-                    $visual_theme = '';
-                break;
-                case '2':
-                    $visual_theme = '<link href="' . plugins_url( 'assets/style_white.css' , __FILE__ ) . '" rel="stylesheet" type="text/css">';
-                break;
-                case '3':
-                    $visual_theme = '<link href="' . plugins_url( 'assets/style_black.css' , __FILE__ ) . '" rel="stylesheet" type="text/css">';
-                break;
-                case '4':
-                    $visual_theme = '<link href="' . plugins_url( 'assets/style_transparent.css' , __FILE__ ) . '" rel="stylesheet" type="text/css">';
-                break;
-            }
             
-            echo $visual_theme;
             echo '<div class="cp_output_wrapper">';
             foreach ($preview_fields as $preview_field) {
                 if (!empty($preview_field)) {
@@ -415,7 +453,11 @@
                             echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field">' . coderbits_profiler_data($preview_field) . '</div>';
                         break;
                         case 'accounts':
-                            echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field"><span class="field_text">On the web</span>' . coderbits_profiler_data($preview_field) . '</div>';
+                            if($plugin_options[0] == 1) {
+                                echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field"><span class="field_text">On the web</span>' . coderbits_profiler_data($preview_field, 'original') . '</div>';
+                            } else {
+                                echo '<div id="' . $preview_field . '" class="' . $preview_field . ' cp_output_field"><span class="field_text">On the web</span>' . coderbits_profiler_data($preview_field) . '</div>';
+                            }
                         break;
                     }
                 }
@@ -470,6 +512,9 @@
             case 'top_traits':
             case 'top_areas':
                 $output = coderbits_profiler_data($data, 'name');
+            break;
+            case 'accounts':
+                $output = coderbits_profiler_data($data, 'original');
             break;
             default:
                 $output = coderbits_profiler_data($data);

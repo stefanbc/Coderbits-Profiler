@@ -93,7 +93,7 @@
 	width: 100%;
 	padding: 10px 0;
 }
-.badge,.account {
+.badge, .account {
 	width: 32px;
 	height: 32px;
 	margin: 2px;
@@ -104,6 +104,15 @@
     border: 2px solid #000;
     width: 28px;
     height: 28px;
+}
+.account_shortcode { 
+    margin: 2px; 
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    width: 28px;
+    height: 28px;
+    background: none; 
+    border: 2px solid transparent; 
 }
 .accounts .field_text { text-align: left; }
 .apple { background: #B9BFC1; }

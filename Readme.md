@@ -32,7 +32,7 @@ Manifest
 
 **Tested up to:** 3.6.1
 
-**Stable tag:** 1.2.3
+**Stable tag:** 1.2.3a
 
 **License:** GPLv2 or later
 

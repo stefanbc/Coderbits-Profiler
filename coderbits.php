@@ -318,6 +318,22 @@
                         
                         // If it's used as a shortcode show coderbits provided image
                         if($subtype == 'original') {
+                            // Some services have a different name for the image
+                            switch($name) {
+                                case 'Syndication Feed':
+                                    $name = 'syndication';
+                                break;
+                                case 'Peer 2 Peer University':
+                                    $name = 'p2pu';
+                                break;
+                                case 'Envato Marketplaces':
+                                    $name = 'envato';
+                                break;
+                                default:
+                                    $name = $name;
+                                break;
+                            }
+                            // Build the service image link
                             $account_image = 'http://coderbits.com/images/' . str_replace(" ","",strtolower($name)) . '32.png';
                             
                             $data .= '<a href="' . $link . '" title="' . $name . '" target="_blank"><img src="' . $account_image . '" class="account_shortcode" alt="account"></a>';

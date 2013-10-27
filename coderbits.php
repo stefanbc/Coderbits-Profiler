@@ -3,7 +3,7 @@
         Plugin Name: Coderbits Profiler
         Plugin URI: https://github.com/stefanbc/Coderbits-Profiler
         Description: Display your Coderbits profile data using a widget or a shortcode.
-        Version: 1.2.3a
+        Version: 1.2.5
         Author: Stefan Cosma
         Author URI: http://coderbits.com/stefanbc
         License: GPLv2 or later
@@ -294,7 +294,7 @@
                             $$key = $badge;
                         }
                         // Check if the badge has been earned
-                        if ($earned && !empty($earned_date)) {
+                        if ($earned && !empty($earned_date) && $level == 1) {
                             // Build the badge
                             $data .= '<a href="' . $link . '" title="' . $name . ' - ' . $description . '" target="_blank"><img src="' . $image_link . '"  width="45px" height="45px" class="badge" alt="badge"></a>';
                             // Break the loop if we reach 15 entries

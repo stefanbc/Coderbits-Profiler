@@ -30,9 +30,9 @@ Manifest
 
 **Requires at least:** 3.3
 
-**Tested up to:** 3.6.1
+**Tested up to:** 3.7
 
-**Stable tag:** 1.2.3a
+**Stable tag:** 1.2.5
 
 **License:** GPLv2 or later
 

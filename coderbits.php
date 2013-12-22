@@ -3,7 +3,7 @@
         Plugin Name: Coderbits Profiler
         Plugin URI: https://github.com/stefanbc/Coderbits-Profiler
         Description: Display your Coderbits profile data using a widget or a shortcode.
-        Version: 1.2.5
+        Version: 1.2.6
         Author: Stefan Cosma
         Author URI: http://coderbits.com/stefanbc
         License: GPLv2 or later
@@ -121,10 +121,10 @@
                 echo '<div class="row">Current active Coderbits profile: <b>' . get_option('coderbits_profiler_username') . '</b></div>';
                 echo '<div class="row">';
                     echo '<form method="post" id="profile_form">';
-                        echo 'Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_profile_coderbits_profiler" id="update_profile_coderbits_profiler" value="Set Profile">';
+                        echo 'Set Coderbits profile: <input type="text" name="username" id="username" placeholder="coderbits username"><input type="submit" name="update_profile_coderbits_profiler" id="update_profile_coderbits_profiler" value="Set Profile" class="button_action">';
                     echo '</form>';
                     echo '<form method="post" id="update_profile_form">';
-                        echo '<input type="hidden" name="update_profile_data" id="update_profile_data" value="true"><input type="submit" name="update_profile_data_coderbits_profiler" id="update_profile_data_coderbits_profiler" value="Update Data">';
+                        echo '<input type="hidden" name="update_profile_data" id="update_profile_data" value="true"><input type="submit" name="update_profile_data_coderbits_profiler" id="update_profile_data_coderbits_profiler" value="Update Data" class="button_action">';
                     echo '</form>';
                 echo '</div>';
 
@@ -194,7 +194,7 @@
                         echo '</div>';
                     echo '</div>';
                     echo '</div>';
-                echo '<div id="fields_submit_button" class="submit_button"><input type="submit" name="update_fields_coderbits_profiler" id="update_fields_coderbits_profiler" value="Save Fields"></div>';
+                echo '<div id="fields_submit_button" class="submit_button"><input type="submit" name="update_fields_coderbits_profiler" id="update_fields_coderbits_profiler" value="Save Fields" class="button_action"></div>';
                 echo '</form>';
             echo '</div>';
 
@@ -226,7 +226,7 @@
                 echo '</select><br>';
                 echo '<span class="alert">Warning! If you choose None, no visual style will be applied to your widget.</span>';
                 echo '</div>';
-                echo '<div id="options_submit_button" class="submit_button"><input type="submit" name="update_options_coderbits_profiler" id="update_options_coderbits_profiler" value="Save Options"></div>';
+                echo '<div id="options_submit_button" class="submit_button"><input type="submit" name="update_options_coderbits_profiler" id="update_options_coderbits_profiler" value="Save Options" class="button_action"></div>';
                 echo '</form>';
                 echo '<h2 class="zone-title-preview">Preview Widget <small><i>Preview widget based on your settings</i></small></h2>';
                 coderbits_profiler_output_data();

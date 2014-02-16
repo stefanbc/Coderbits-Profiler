@@ -9,13 +9,20 @@
         License: GPLv2 or later
         License URI: http://www.gnu.org/licenses/gpl-2.0.html
     */
+    
+    // Create cache folder on activation
+    function coderbits_profiler_activate() {
+        $old = umask(0);
+        mkdir(WP_CONTENT_DIR . '/cache', 0777);
+        umask($old);
+    }
+    register_activation_hook(__FILE__, 'coderbits_profiler_activate');
 
-    add_action('admin_menu','coderbits_profiler');
-
-    // create submenu page in the WordPress Settings menu
+    // Create submenu page in the WordPress Settings menu
     function coderbits_profiler() {
         add_submenu_page('options-general.php', 'Coderbits Profiler', 'Coderbits Profiler', 'edit_posts', 'coderbits_profiler', 'coderbits_profiler_options');
     }
+    add_action('admin_menu','coderbits_profiler');
     
     // Add settings link to plugin on plugins list
     function coderbits_add_settings_link($links) {
@@ -25,7 +32,6 @@
     }
     $plugin = plugin_basename(__FILE__);
     add_filter("plugin_action_links_$plugin", 'coderbits_add_settings_link');
-
 
     // Check if the cache folder is writable
     function cache_folder_notice() {
@@ -48,7 +54,7 @@
     function coderbits_profiler_admin_styles() {
         // Register the styles
         wp_register_style('coderbits_profiler_admin_font', 'https://fonts.googleapis.com/css?family=Roboto:300,400');
-    	wp_register_style('coderbits_profiler_admin_style', plugins_url('assets/style.css', __FILE__ ));
+    	wp_register_style('coderbits_profiler_admin_style', plugins_url('assets/css/style.css', __FILE__ ));
     	
     	// Register the script
     	wp_register_script('coderbits_profiler_admin_script', plugins_url( 'assets/general.js' , __FILE__ ));
@@ -381,19 +387,19 @@
         switch($plugin_options[0]){
             case '1':
                 // Register the style
-    	        wp_register_style('coderbits_profiler_style', plugins_url('assets/style_none.css', __FILE__ ));
+    	        wp_register_style('coderbits_profiler_style', plugins_url('assets/css/style_none.css', __FILE__ ));
             break;
             case '2':
                 // Register the style
-    	        wp_register_style('coderbits_profiler_style', plugins_url('assets/style_white.css', __FILE__ ));
+    	        wp_register_style('coderbits_profiler_style', plugins_url('assets/css/style_white.css', __FILE__ ));
             break;
             case '3':
                 // Register the style
-    	        wp_register_style('coderbits_profiler_style', plugins_url('assets/style_black.css', __FILE__ ));
+    	        wp_register_style('coderbits_profiler_style', plugins_url('assets/css/style_black.css', __FILE__ ));
             break;
             case '4':
                 // Register the style
-    	        wp_register_style('coderbits_profiler_style', plugins_url('assets/style_transparent.css', __FILE__ ));
+    	        wp_register_style('coderbits_profiler_style', plugins_url('assets/css/style_transparent.css', __FILE__ ));
             break;
         }
     	// Enqueue the style

@@ -1,0 +1,142 @@
+.cp_output_wrapper {
+	width: 200px;
+	margin: 15px auto;
+	color: #000;
+	padding: 20px;
+	background: none;
+	border: 1px solid #ccc;
+	border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
+	-webkit-box-shadow: 1px 1px 2px 0 #d0d0d0;
+	-moz-box-shadow: 1px 1px 2px 0 #d0d0d0;
+	box-shadow: 1px 1px 2px 0 #d0d0d0;
+	overflow: hidden;
+}
+.field_text {
+	color: #aaa;
+}
+.gravatar_hash {
+	float: left;
+	padding-right: 15px;
+}
+.gravatar_hash img {
+	width: 45px;
+	height: 45px;
+}
+.name {
+	float: left;
+}
+.title {
+	float: left;
+	display: block;
+	width: 70%;
+	padding: 10px 0;
+	font-style: italic;
+	font-size: 0.8em;
+}
+.badges_count {
+	width: 55%;
+	overflow: hidden;
+	float: left;
+	padding: 10px 0;
+}
+.views {
+	width: 45%;
+	overflow: hidden;
+	float: left;
+	padding: 10px 0;
+}
+.follower_count {
+	float: left;
+	overflow: hidden;
+	width: 55%;
+	padding: 5px 0;
+}
+.following_count {
+	float: left;
+	overflow: hidden;
+	width: 45%;
+	padding: 5px 0;
+}
+.top_skills,
+.top_languages,
+.top_environments,
+.top_frameworks,
+.top_tools,
+.top_interests,
+.top_traits,
+.top_areas,
+.location,
+.website_link,
+.bio,
+.rank,
+.accounts {
+	overflow: hidden;
+	width: 100%;
+	padding: 5px 0;
+}
+.top_skills .field_text,
+.top_languages .field_text,
+.top_environments .field_text,
+.top_frameworks .field_text,
+.top_tools .field_text,
+.top_interests .field_text,
+.top_traits .field_text,
+.top_areas .field_text,
+.accounts .field_text  {
+	display: block;
+	padding-bottom: 5px;
+}
+.badges,.accounts {
+	text-align: center;
+	display: block;
+	overflow: hidden;
+	width: 100%;
+	padding: 10px 0;
+}
+.badge, .account {
+	width: 32px;
+	height: 32px;
+	margin: 2px;
+}
+.account {
+    background: #222;
+    border-radius: 50%;
+    border: 2px solid #000;
+    width: 28px;
+    height: 28px;
+}
+.account_shortcode { 
+    margin: 2px; 
+    border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    width: 28px;
+    height: 28px;
+    background: none; 
+    border: 2px solid transparent; 
+}
+.accounts .field_text { text-align: left; }
+.apple { background: #B9BFC1; }
+.behance { background: #1769FF; }
+.bitbucket { background: #205081; }
+.codeschool { background: #C68044; }
+.codecademy { background: #0088CC; }
+.codepen { background: #231F20; }
+.coderwall { background: #3E8DCC; }
+.coursera { background: #3A6D8E; }
+.dribbble { background: #EA4C89; }
+.envatomarketplaces { background: #528036; }
+.forrst { background: #5B9A68; }
+.geeklist { background: #8CC63E; }
+.github { background: #4183C4; }
+.googlecode { background: #245DC1; }
+.hackernews { background: #FF6600; }
+.jsfiddle { background: #4679A4; }
+.klout { background: #E24A25; }
+.linkedin { background: #007FB1; }
+.readability { background: #870000; }
+.rubygems { background: #A62C39; }
+.slideshare { background: #009999; }
+.stackoverflow { background: #F47920; }
+.syndicationfeed { background: #FF8300; }
+.treehouse { background: #7FA24C; }
+.twitter { background: #00ACED; }

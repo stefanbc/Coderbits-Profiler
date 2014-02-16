@@ -1,4 +1,4 @@
-Coderbits Profiler [![Clone in Koding](http://kbutton.org/clone.png?v1378807060)](http://kbutton.org/stefanbc/Coderbits-Profiler)
+Coderbits Profiler
 ==================
 
 Display your Coderbits profile data using a widget or a shortcode.

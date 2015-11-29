@@ -1,3 +1,5 @@
+## NO LONGER MAINTAINED
+
 Coderbits Profiler
 ==================
 
